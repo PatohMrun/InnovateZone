@@ -1,0 +1,59 @@
+.blogs {
+    margin-top: 30px;
+  }
+
+  .blogs h1 {
+    color: rgb(0, 0, 0);
+  }
+
+  .blogs h3 {
+    font-size: 25px;
+  }
+  #UpdateBlog a {
+    background-color: goldenrod;
+    box-shadow: 10px 10px 15px rgb(0, 0, 0);
+    font-family: 'times new roman';
+  }
+  #AddBlog {
+    color: rgb(0, 0, 0);
+    position: fixed;
+    bottom: 10%;
+    right: 5%;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    text-shadow: #000;
+    text-decoration: none;
+  }
+  .EachBlog {
+    display: flex;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    margin-top: 20px;
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .SpecificBlog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 72vh;
+  }
+  #ContentDisplay {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
+    font-size: 20px;
+  }
+  @media only screen and (max-width: 600px) {
+    .EachBlog {
+      max-width: 90%;
+    }
+  }

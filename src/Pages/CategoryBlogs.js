@@ -1,6 +1,7 @@
 import Blogs from '../Components/BlogsMapping';
 import useFetch from "../Components/Fetch";
 import React, { useState, useEffect } from 'react';
+import "../styles/categoryBlogs.css"
 
 const CategoryBlogs = ({ category, title }) => {
   const [userRole, setUserRole] = useState(null);
@@ -8,7 +9,6 @@ const CategoryBlogs = ({ category, title }) => {
   useEffect(() => {
     const role = sessionStorage.getItem("token");
     setUserRole(role);
-    console.log(role);
   }, []);
 
   const { data, pending, Errors } = useFetch("http://localhost:8000/Blogs")
@@ -23,7 +23,7 @@ const CategoryBlogs = ({ category, title }) => {
         </div>
       ) : (
         
-        <div>Not authorized to add blog</div>
+        <div></div>
       )}
             
       <div className="blogs">

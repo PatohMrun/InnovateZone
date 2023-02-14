@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import bcrypt from "bcryptjs";
 import { useHistory } from "react-router-dom";
+import "../styles/Credentials.css"
+
 
 
 const StaffSignUp = () => {

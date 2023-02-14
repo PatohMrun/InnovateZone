@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import "../styles/Credentials.css"
+
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -22,9 +24,6 @@ const LoginForm = () => {
   };
   //the invalid login to expire in two second
   useEffect(() => {
-    // window.addEventListener("beforeunload", () => {
-    //   localStorage.removeItem("token");
-    // });
     let timer;
     if (invalidLogin) {
       timer = setTimeout(() => {

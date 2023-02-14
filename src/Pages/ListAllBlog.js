@@ -1,7 +1,7 @@
 import Blogs from '../Components/BlogsMapping';
 import useFetch from "../Components/Fetch";
 import React, { useState, useEffect } from 'react';
-// import Datastyles from '../Components/BlogsMapping';
+import "../styles/categoryBlogs.css"
 
 // To know the role of user and grant them permission to add blog
 const ListedBlogs= ()=>{

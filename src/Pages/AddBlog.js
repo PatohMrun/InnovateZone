@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import "../styles/AddBlog.css";
 
 const AddBlog = () => {
   const [userRole, setUserRole] = useState(null);
@@ -20,7 +21,7 @@ const AddBlog = () => {
   const toolbar = [  ['bold', 'italic', 'underline', 'strike'],       
   [{ 'header': [1, 2, 3, false] }],
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  // ['link', 'image'], 
+  ['link', 'image'], 
   [{ 'color': [] }, { 'background': [] }],
   [{ 'font': [] }],
   [{ 'align': [] }],

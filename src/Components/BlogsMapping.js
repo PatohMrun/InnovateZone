@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import "../styles/categoryBlogs.css"
 
 const Content = ({ data, title }) => {
   const sortedData = data.sort((a, b) => b.id - a.id);

@@ -1,0 +1,82 @@
+.myBlogs {
+  background-color: antiquewhite;
+  align-content: center;
+  background-color: beige;
+  padding: 20px;
+  margin: 20px;
+  width: 60%;
+  margin-right: auto;
+  margin-left: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.myBlogs h2 {
+  text-align: center;
+  color: blue;
+  text-decoration: underline;
+}
+
+.myBlogs p {
+  font-size: 1.3rem;
+}
+.CommentForm {
+  width: 100%;
+  border-radius: 5%;
+}
+.CommentForm input {
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  border-color: gold;
+}
+
+.CommentForm textarea {
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  border-color: gold;
+}
+
+.CommentInput {
+  width: "20%";
+}
+.Writter {
+  align-items: flex-end;
+  margin-top: auto;
+}
+.replyForm{
+  width: 50%;
+  background-color: white;
+}
+
+@media only screen and (max-width: 940px) {
+  .myBlogs {
+    width: 80%;
+  }
+  #UpdateBlog a {
+    right: 1%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .myBlogs {
+    width: 95%;
+  }
+  .CommentForm {
+    width: "100%";
+  }
+  .CommentForm textarea {
+    padding: 10px;
+    width: 100%;
+  }
+  .CommentForm input {
+    padding: 10px;
+    width: 100%;
+  }
+  .replyForm{
+    width: 80%;
+    background-color: white;
+  }
+}

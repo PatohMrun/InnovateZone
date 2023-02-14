@@ -8,19 +8,12 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const secretKey = "secret_key"; // replace this with your own secret key
-
-// require('dotenv').config()
-// const mysql = require('mysql2')
-// const connection = mysql.createConnection(process.env.DATABASE_URL)
-// console.log('Connected to PlanetScale!')
-// connection.end()
-
-
-
+const secretKey = process.env.SALT; // replace this with your own secret key
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+// const connection = mysql.createConnection(process.env.DATABASE_URL);
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -28,12 +21,18 @@ const db = mysql.createConnection({
   password: process.env.PD,
   database: process.env.DB,
 });
-console.log("Password is "+process.env.PD);
 
 db.connect((err, req) => {
   if (err) console.log(err);
   else console.log("Database Connected");
 });
+
+// connection.connect((err) => {
+//   if (err) console.log(err);
+//   else console.log("Connected to PlanetScale!");
+// });
+
+//replaced code
 
 app.get("/blogs", (err, res) => {
   const data = "select*from articles";
@@ -175,7 +174,7 @@ app.post("/comments", (req, res) => {
   const email = req.body.email;
   const comment = req.body.comments;
   const id = req.body.id;
-
+console.log("iiid is: "+id);
   const insertComments =
     "Insert into comments (id,name, email, comment) values (?,?,?,?)";
 
@@ -213,42 +212,6 @@ app.get("/getComments/:id", (err, res) => {
   });
 });
 
-//login API
-// app.post("/login", (req, res) => {
-//   const name = req.body.name;
-//   const password = req.body.password;
-//   if (!name || !password) {
-//     return res.status(400).json({
-//       message: "Please provide both email and password"
-//     });
-//   }
-
-//   const query = "SELECT * FROM users WHERE name = ?";
-//   db.query(query, [name], (error, results) => {
-//     if (error) console.log(error);
-
-//     if(results){
-//       console.log(results);
-//     }
-//     if (!results || !results.length) {
-//       return res.status(400).json({
-//         message: "Name not found"
-//       });
-//     }
-
-//     const user = results[0];
-//     if (user.password !== password) {
-//       return res.status(400).json({
-//         message: "Password incorrect"
-//       });
-//     }
-
-//     return res.status(200).json({
-//       message: "Login successful"
-//     });
-//   });
-// });
-
 app.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -264,7 +227,6 @@ app.post("/login", (req, res) => {
     if (error) console.log(error);
 
     if (!results || !results.length) {
-      console.log("User not found");
       db.query(adminsQuery, [email], (error, results) => {
         if (error) console.log(error);
 
