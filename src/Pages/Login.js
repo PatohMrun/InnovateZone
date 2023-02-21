@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import "../styles/Credentials.css"
+import supabase from "../supabase";
 
 
 const LoginForm = () => {
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -13,9 +15,14 @@ const LoginForm = () => {
   const [invalidLogin, setinvalidLogin] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [data, setData] = useState({});
-
   const history = useHistory();
 
+ async function  googleLogin(){
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+  })
+  }
+ 
   const handleInputChange = (event) => {
     setFormData({
       ...formData,
@@ -51,7 +58,6 @@ fetch("http://localhost:8000/login", {
   return res.json();
 })
 .then((data) => {
-  // console.log(data.results[0]["name"]);
   const token = data.role; // extract the token from the response
   const Name=data.results[0]["name"]
   sessionStorage.setItem("Name", Name); 
@@ -121,6 +127,7 @@ fetch("http://localhost:8000/login", {
           </a>
         }
       </h4>
+      <button onClick={googleLogin}>Sign up with google</button>
       {signUpSuccess && (
         <div style={{ color: "green" }} className="signup-success-popup">
           <p>Login successful {data.message}! Welcome</p>

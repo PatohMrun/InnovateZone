@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import usePostData from "./PostComments";
 const Replies = () => {
   const { id } = useParams();
   const [CommmentSubmitted, setCommentSubmitted] = useState(false);

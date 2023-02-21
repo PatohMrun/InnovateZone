@@ -24,9 +24,34 @@ CREATE TABLE Admins (
 );
 
 CREATE TABLE comments (
-  CID INT AUTO_INCREMENT PRIMARY KEY,
+  comment_id INT AUTO_INCREMENT PRIMARY KEY,
   id varchar(5) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  parent_comment_id INT DEFAULT NULL,
+  email VARCHAR(255) NOT NULL,
+  comment varchar(500) NOT NULL
+);
+
+CREATE TABLE replies (
+  RID INT AUTO_INCREMENT PRIMARY KEY,
+  CID varchar(5) NOT NULL,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   comment varchar(500) NOT NULL
 );
+
+CREATE TABLE comments (
+    comment_id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    parent_comment_id INT DEFAULT NULL,
+    content TEXT NOT NULL,
+    timestamp DATETIME NOT NULL
+);
+CREATE TABLE likes (
+    like_id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT(5) NOT NULL,
+    isLiked varchar(4) NOT NULL
+);
+

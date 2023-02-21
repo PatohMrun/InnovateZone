@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../styles/Header.css";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
+import supabase from "../supabase";
 
 const showHideMenu = () => {
   const show = document.querySelectorAll(".navbar a");
@@ -10,22 +12,22 @@ const showHideMenu = () => {
 
   const mediaQuery = window.matchMedia("(max-width: 600px)");
   if (mediaQuery.matches) {
-  show.forEach((link) => {
-    if (link.style.display === "none") {
-      link.style.display = "block";
-      menuSvg.style.display = "none";
-      closeMenuSvg.style.display = "block";
-    } else {
-      link.style.display = "none";
-      menuSvg.style.display = "block";
-      closeMenuSvg.style.display = "none";
-    }
-  });
-}
+    show.forEach((link) => {
+      if (link.style.display === "none") {
+        link.style.display = "block";
+        menuSvg.style.display = "none";
+        closeMenuSvg.style.display = "block";
+      } else {
+        link.style.display = "none";
+        menuSvg.style.display = "block";
+        closeMenuSvg.style.display = "none";
+      }
+    });
+  }
 };
 
 const MenuRoutes = [
-  { href: "/", title: "Home" },
+  { href: "/Home", title: "Home" },
   { href: "/Enterpreneur skills", title: "Entepreneur Skills" },
   { href: "/Business ideas", title: "Business Ideas" },
   { href: "/Technologies", title: "Technologies" },
@@ -38,16 +40,24 @@ const Menu = () => {
   const [userName, setuserName] = useState(null);
 
   useEffect(() => {
+    
     const role = sessionStorage.getItem("token");
     setUserRole(role);
     const Name = sessionStorage.getItem("Name");
     setuserName(Name);
-
+    supabase.auth.getUser().then((res)=>{
+      const fullName = res.data.user.user_metadata.full_name;
+      setuserName(fullName)
+      if(fullName !== null){
+        setIsLoggedIn(true);
+      }
+    })
     if (role !== null) {
       setIsLoggedIn(true);
     }
+    
   }, [userRole]);
-  // console.log(document.getElementById('root'))?
+  console.log(userName);
 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
@@ -58,47 +68,24 @@ const Menu = () => {
     <div className="Menus">
       <nav className="navbar">
         <h1>YoungProfessor.Blog</h1>
-        <svg
+        <AiOutlineMenu
+          onClick={showHideMenu}
+          size={26}
           id="showmenu"
-          width={"40px"}
-          onClick={showHideMenu}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
           className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-          />
-        </svg>
+        />
 
-        <svg
-          className="closemenu"
-          width={"40px"}
-          style={{ display: "none" }}
+        <AiOutlineClose
           onClick={showHideMenu}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-
+          size={26}
+          className="closemenu"
+          style={{ display: "none" }}
+        />
         <ul>
           {MenuRoutes.map(({ href, title }, index) =>
             title === "Sign up/login" ? (
               !isLoggedin ? (
-                <Link
+                <NavLink
                   style={{
                     backgroundColor: "rgb(26, 168, 37)",
                     borderRadius: "10px",
@@ -108,7 +95,7 @@ const Menu = () => {
                   onClick={showHideMenu}
                 >
                   {title}
-                </Link>
+                </NavLink>
               ) : (
                 <div key={index}>
                   <h4 style={{ color: "gold" }}>
@@ -123,9 +110,9 @@ const Menu = () => {
                 </div>
               )
             ) : (
-              <Link key={index} onClick={showHideMenu} to={href}>
+              <NavLink key={index} onClick={showHideMenu} to={href}>
                 {title}
-              </Link>
+              </NavLink>
             )
           )}
         </ul>

@@ -1,0 +1,233 @@
+/* footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #207DE7;
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  .footer-info {
+    flex-basis: 50%;
+  }
+  
+  .footer-info p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ffffff;
+  }
+  
+  .footer-info a {
+    color: #001E36;
+    text-decoration: none;
+  }
+  
+  .footer-info a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-social {
+    flex-basis: 50%;
+  }
+  
+  .footer-social p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: black;
+  }
+  
+  .footer-social ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .footer-social li {
+    margin-left: 10px;
+  }
+  
+  .footer-social a {
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: #666;
+    border-radius: 50%;
+    background-color: #fff;
+    text-align: center;
+    line-height: 30px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .footer-social a:hover {
+    background-color: #666;
+    color: #fff;
+  }
+  @media screen and (max-width: 768px) {
+    footer {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .footer-info, .footer-social {
+      flex-basis: 100%;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .footer-social {
+      order: -1;
+    }
+    
+    .footer-social ul {
+      justify-content: center;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .footer-social a {
+      font-size: 16px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+    }
+  }
+  
+   */
+
+   /* Base styles for the footer */
+   .form-flex {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1rem; /* add some margin between the label/input pairs */
+  }
+  
+  label {
+    margin-bottom: 0.5rem; /* add some space between the label and input */
+  }
+   footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #1e83f7;
+    color: #fff;
+    font-size: 0.9rem;
+  }
+  
+  .footer-info {
+    line-height: 1.7rem;
+    flex: 1 1 300px;
+    margin-right: 2rem;
+    font-size: 16px;
+  }
+  
+  .footer-contact {
+    flex: 1 1 300px;
+    margin-right: 2rem;
+  }
+  
+  .footer-contact form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin-top: 1rem;
+  }
+  
+  .footer-contact form h3 {
+    font-size: 1.0rem;
+    margin-bottom: 0.5rem;
+    color: #000;
+  }
+  
+  .footer-contact form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.2rem;
+  }
+  
+  .footer-contact form label {
+    margin-bottom: 0.2rem;
+  }
+  
+  .footer-contact form input,
+  .footer-contact form textarea {
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    border-color: gold;
+    border-radius: 3px;
+  }
+  
+  .footer-contact form button {
+    padding: 0.3rem 0.7rem;
+    font-size: 1rem;
+    background-color: #b4b1b1;
+    color: green ;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .footer-contact form button:hover {
+    background-color: #ccc;
+  }
+  
+  .footer-social {
+    flex: 1 1 150px;
+  }
+  
+  .footer-social p {
+    font-size: 17px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-social ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .footer-social li {
+    margin-right: 1rem;
+  }
+  .footer-social a{
+    font-size: 1.5rem;
+  }
+  /* Media queries */
+  @media only screen and (max-width: 768px) {
+    footer {
+      flex-direction: column;
+    }
+  
+    .footer-info,
+    .footer-contact {
+      flex-basis: 100%;
+      margin-right: 0;
+      margin-bottom: 2rem;
+    }
+  
+    .footer-social {
+      flex-basis: 100%;
+    }
+    .footer-contact form {
+        width: 80vw;
+      }
+  }
+  
+  @media only screen and (max-width: 480px) {
+    .footer-contact form {
+      width: 80vw;
+    }
+  }

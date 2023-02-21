@@ -168,28 +168,116 @@ app.post("/signUpAdmins", async (req, res) => {
   });
 });
 
-//storing comments in the database
 app.post("/comments", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
-  const comment = req.body.comments;
-  const id = req.body.id;
-console.log("iiid is: "+id);
-  const insertComments =
-    "Insert into comments (id,name, email, comment) values (?,?,?,?)";
+  const content = req.body.comments;
+  const post_id = req.body.id;
+  const parent_comment_id = req.body.parent_comment_id || null;
 
-  db.query(insertComments, [id, name, email, comment], (error, comments) => {
+  const insertComment =
+    "INSERT INTO comments (post_id, name, email, parent_comment_id, content, timestamp) VALUES (?, ?, ?, ?,?, NOW())";
+
+  db.query(insertComment, [post_id, name, email, parent_comment_id, content], (error, result) => {
     if (error) {
-      console.log("This is the error messssss " + error);
-      return res
-        .status(500)
-        .json({ error: "Error inserting data into the database" });
+      console.log("Error inserting comment into database:", error);
+      return res.status(500).json({ error: "Error inserting comment into the database" });
     }
-    console.log(comments);
-    console.log("Comments inserted");
-    return res.status(200).json({ message: "Sign up successful" });
+    
+    console.log("Comment inserted into database:", result.insertId);
+    return res.status(200).json({ message: "Comment added successfully" });
   });
 });
+app.post("/like", (req, res) => {
+  const isLiked = req.body.isLiked;
+  const post_id = req.body.post_id;
+  console.log(isLiked);
+  // Check if a row with the post_id already exists
+  const selectQuery = "SELECT * FROM likes WHERE post_id = ?";
+  db.query(selectQuery, [post_id], (err, rows) => {
+    if (err) {
+      console.log("Error selecting from likes table:", err);
+      return res.status(500).json({ error: "Error selecting from likes table" });
+    }
+
+    // If a row with the post_id exists, update the isLiked column
+    if (rows.length > 0) {
+      const updateQuery = "UPDATE likes SET isLiked = isLiked +  ? WHERE post_id = ?";
+      db.query(updateQuery, [isLiked, post_id], (err, resp) => {
+        if (err) {
+          console.log("Error updating likes in database:", err);
+          return res.status(500).json({ error: "Error updating likes in the database" });
+        }
+        console.log("Likes updated in database:");
+        return res.status(200).json({ message: "Likes updated successfully" });
+      });
+
+    // If no row with the post_id exists, insert a new row with the post_id and isLiked values
+    } else {
+      const insertQuery = "INSERT INTO likes (post_id, isLiked) VALUES (?, ?)";
+      db.query(insertQuery, [post_id, isLiked], (err, resp) => {
+        if (err) {
+          console.log("Error inserting likes into database:", err);
+          return res.status(500).json({ error: "Error inserting likes into the database" });
+        }
+        console.log("Likes inserted into database:");
+        return res.status(200).json({ message: "Likes added successfully" });
+      });
+    }
+  });
+});
+
+// app.get("/getlikes/:id", (err, res) => {
+//   const { id } = req.params;
+//   const likes = "SELECT *from likes where post_id=?;";
+//   db.query(likes,id, (err, likes) => {
+//     if (err) {
+//       console.log("This is the error: " + err);
+//     } else {
+//       res.send(likes);
+//       // console.log("The likes are "+likes);
+//     }
+//   });
+// });
+app.get("/getlikes/:id", (req, res) => {
+  const { id } = req.params;
+  const likesQuery = "SELECT * FROM likes WHERE post_id = ?";
+  db.query(likesQuery, [id], (err, likes) => {
+    if (err) {
+      console.log("Error retrieving likes from database:", err);
+      return res.status(500).json({ error: "Error retrieving likes from the database" });
+    }
+    console.log("Likes retrieved from database:"+ likes);
+    res.send(likes);
+    // return res.status(200).json({ likes });
+  });
+});
+
+
+
+//storing comments in the database
+// app.post("/comments", (req, res) => {
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const comment = req.body.comments;
+//   const id = req.body.id;
+//   const parent_comment_id = req.body.parent_comment_id || null;
+// // console.log("iiid is: "+id);
+//   const insertComments =
+//     "Insert into comments (id,name, parent_comment_id, email, comment) values (?,?,?,?,?)";
+
+//   db.query(insertComments, [id, name, parent_comment_id, email, comment], (error, comments) => {
+//     if (error) {
+//       console.log("This is the error messssss " + error);
+//       return res
+//         .status(500)
+//         .json({ error: "Error inserting data into the database" });
+//     }
+//     // console.log(comments);
+//     console.log("Comment inserted into database:", result.insertId);
+//     return res.status(200).json({ message: "Comment adede successful" });
+//   });
+// });
 
 app.get("/getComments", (err, res) => {
   const comments = "select*from comments";
@@ -211,6 +299,41 @@ app.get("/getComments/:id", (err, res) => {
     }
   });
 });
+
+// //storing Replies in the database
+// app.post("/Replies", (req, res) => {
+//   const name = req.body.name;
+//   const email = req.body.email;
+//   const comment = req.body.comments;
+//   const CID = req.body.id;
+// // console.log("iiid is: "+id);
+//   const insertReplies =
+//     "Insert into replies (CID,name, email, comment) values (?,?,?,?)";
+
+//   db.query(insertReplies, [CID, name, email, comment], (error, comments) => {
+//     if (error) {
+//       console.log("This is the error messssss " + error);
+//       return res
+//         .status(500)
+//         .json({ error: "Error inserting data into the database" });
+//     }
+//     console.log(comments);
+//     console.log("Comments inserted");
+//     return res.status(200).json({ message: "Sign up successful" });
+//   });
+// });
+
+// app.get("/getReply", (err, res) => {
+//   const Replies = "select*from replies";
+//   db.query(Replies, (err, Replies) => {
+//     if (err) {
+//       console.log("This is the error: " + err);
+//     } else {
+//       res.send(Replies);
+//     }
+//   });
+// });
+
 
 app.post("/login", (req, res) => {
   const email = req.body.email;

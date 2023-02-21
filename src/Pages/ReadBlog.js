@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import useFetch from "../Components/Fetch";
-import CommentMessages from "../Components/Comment";
-import Replies from "../Components/CommentReplies";
+import CommentMessages from "../Components/ComMessages";
+import Replies from "../Components/ComReplies";
+
 import "../styles/ReadBog.css";
 
 const ReadBlogs = () => {
@@ -20,23 +21,23 @@ const ReadBlogs = () => {
       history.push("/");
     });
   };
+  
+ 
   return (
     <div className="myBlogs">
       {data && <h2 dangerouslySetInnerHTML={{ __html: data[0]["Title"] }} />}
       {data && <div dangerouslySetInnerHTML={{ __html: data[0]["Content"] }} />}
       <br />
       {data && (
-        <p style={{float: "right", color: "blue" }}>
+        <p style={{ float: "right", color: "blue" }}>
           Written by:{" "}
           <span dangerouslySetInnerHTML={{ __html: data[0]["Author"] }} />
         </p>
       )}
       {pending && <div>Loading...</div>}
       {Error && <div>An error occured...</div>}
-      <br />
-      <br />
-      <br />
-      <h3
+
+      {/* <h3
         style={{
           textAlign: "center",
           fontSize: "1.4rem",
@@ -45,9 +46,9 @@ const ReadBlogs = () => {
         }}
       >
         Comments
-      </h3>
+      </h3> */}
       <CommentMessages />
-      <Replies/>
+      <Replies />
       <br />
       {data && <button onClick={Delete}>Delete Post</button>}
     </div>

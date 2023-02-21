@@ -9,18 +9,21 @@ import SignUpForm from './Pages/Sign up';
 import LoginForm from './Pages/Login';
 import RichTextEditor from './Pages/Test';
 import StaffSignUp from './Pages/StaffSignUp'
+import CommentMessagess from './Components/T';
+import Footer from './Components/Footer';
 import './styles/index.css'; 
 
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter className="wrapper">
     <div className="App">
       <Menu />
      <div className='All'>
 
      <Switch>
-          <Route  exact path='/' component={ ListedBlogs } />
+          <Route  exact path='/Home' component={ ListedBlogs } />
+          <Route  exact path='/W' component={ CommentMessagess } />
           <Route path='/Add blogs' component={ AddBlog } />
           <Route path='/Business ideas' component={ BusinessIdeas } />
           <Route path='/Technologies' component={ Technologies } />
@@ -30,8 +33,10 @@ function App() {
           <Route path='/login' component={ LoginForm } />
           <Route path='/text' component={ RichTextEditor } />
           <Route path='/Blogger' component={ StaffSignUp } />
+          <Route component={ListedBlogs} />
      </Switch>
      </div>
+     <Footer/>
     </div>
   </BrowserRouter>
   );
