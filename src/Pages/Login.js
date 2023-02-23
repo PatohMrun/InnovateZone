@@ -62,11 +62,9 @@ const LoginForm = () => {
         var expire = new Date();
         expire.setTime(expire.getTime() + 24 * 60 * 1000);
         Cookies.set("tokens", token, { expires: expire, session: true }); // save the token in a cookie
-        setTimeout(() => {
-          history.push("/");
-          window.location.reload();
-        }, 1000);
-        setIsLoading(false)
+        history.push("/");
+        window.location.reload();
+        setIsLoading(false);
       })
       .catch((err) => {
         setinvalidLogin(true);
@@ -105,7 +103,7 @@ const LoginForm = () => {
             onChange={handleInputChange}
           />
           <input
-            style={{ width: "20px", marginTop:'3px' }}
+            style={{ width: "20px", marginTop: "3px" }}
             type="checkbox"
             id="showPassword"
             checked={showPassword}
