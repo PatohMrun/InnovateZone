@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const secretKey = process.env.SALT; // replace this with your own secret key
+const secretKey = process.env.SALT; // replacee this with your own secret key
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
