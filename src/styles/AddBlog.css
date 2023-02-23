@@ -36,4 +36,8 @@
     .BlogInput form {
         width: 85%;
       }
+      .BlogInput form {
+        margin-top: 10px;
+        max-width: 110%;
+      }
   }

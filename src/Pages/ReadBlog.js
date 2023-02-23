@@ -11,12 +11,12 @@ import "../styles/ReadBog.css";
 const ReadBlogs = () => {
   const { id } = useParams();
   const { data, pending, Error } = useFetch(
-    "https://blog-server-zeta.vercel.app/blogs/" + id
+    "htts://blog-server-zeta.vercel.app/blogs/" + id
   );
   // const [CommmentSubmitted, setCommentSubmitted] = useState(false);
   const history = useHistory();
   const Delete = async () => {
-    await fetch("https://blog-server-zeta.vercel.app/blogs/" + id, {
+    await fetch("htts://blog-server-zeta.vercel.app/blogs/" + id, {
       method: "DELETE",
     }).then(() => {
       console.log("Deleted");

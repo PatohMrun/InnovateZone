@@ -54,7 +54,9 @@
 .share-icon:hover{
   transform: scale(1.3);
 }
-
+.comment-reply-form{
+max-width: 40%;
+}
 @media only screen and (max-width: 940px) {
   .myBlogs {
     width: 80%;
@@ -82,4 +84,7 @@
     width: 80%;
     background-color: white;
   }
+  .comment-reply-form{
+    max-width: 90%;
+    }
 }

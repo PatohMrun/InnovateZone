@@ -46,7 +46,7 @@ const AddBlog = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const blog = { Title, content, Author, BlogType };
-    fetch("https://blog-server-zeta.vercel.app/blogs", {
+    fetch("htts://blog-server-zeta.vercel.app/blogs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),
