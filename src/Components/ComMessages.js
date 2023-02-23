@@ -21,7 +21,7 @@ const CommentMessages = () => {
     error3,
   } = useFetch("http://localhost:8000/getlikes/" + id);
 if(likes){
-  console.log(likes);
+  // console.log(likes);
   // <h3>Loading....</h3>
 }
 
@@ -141,11 +141,11 @@ if(likes){
             size={26}
           />
            <div style={{ float: "right" }}>
-      <FaShareAlt style={{ color: "#17ACCD", margin: "5px" }} size={26} onClick={() => openPopupWindow(currentUrl, "Share")} />
-      <FaFacebook style={{ color: "#1773EA", margin: "5px" }} size={26} onClick={() => openPopupWindow(facebookShareUrl, "Facebook")} />
-      <GrTwitter style={{ color: "#1C96E8", margin: "5px" }} size={26} onClick={() => openPopupWindow(twitterShareUrl, "Twitter")} />
-      <RiWhatsappFill style={{ color: "#53CC60", margin: "5px" }} size={26} onClick={() => openPopupWindow(whatsappShareUrl, "WhatsApp")} />
-      <MdEmail style={{ color: "#D64135", margin: "5px" }} size={26} onClick={() => openPopupWindow(emailShareUrl, "Email")} />
+      <FaShareAlt className="share-icon" style={{ color: "#17ACCD", margin: "5px"}} size={26} onClick={() => openPopupWindow(currentUrl, "Share")} />
+      <FaFacebook className="share-icon" style={{ color: "#1773EA", margin: "5px" }} size={26} onClick={() => openPopupWindow(facebookShareUrl, "Facebook")} />
+      <GrTwitter className="share-icon" style={{ color: "#1C96E8", margin: "5px" }} size={26} onClick={() => openPopupWindow(twitterShareUrl, "Twitter")} />
+      <RiWhatsappFill className="share-icon" style={{ color: "#53CC60", margin: "5px" }} size={26} onClick={() => openPopupWindow(whatsappShareUrl, "WhatsApp")} />
+      <MdEmail className="share-icon" style={{ color: "#D64135", margin: "5px" }} size={26} onClick={() => openPopupWindow(emailShareUrl, "Email")} />
       <h4
         style={{
           borderRadius: "50%",

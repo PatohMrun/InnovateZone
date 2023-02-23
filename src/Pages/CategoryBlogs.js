@@ -2,12 +2,20 @@ import Blogs from '../Components/BlogsMapping';
 import useFetch from "../Components/Fetch";
 import React, { useState, useEffect } from 'react';
 import "../styles/categoryBlogs.css"
+import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 const CategoryBlogs = ({ category, title }) => {
   const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
-    const role = sessionStorage.getItem("token");
+    const token = Cookies.get("tokens");
+
+    if(token == null){
+      return;
+    }
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
     setUserRole(role);
   }, []);
 

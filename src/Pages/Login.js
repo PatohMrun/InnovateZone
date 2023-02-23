@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import "../styles/Credentials.css"
+import { FcGoogle } from "react-icons/fc";
+import "../styles/Credentials.css";
 import supabase from "../supabase";
-
+import Cookies from "js-cookie";
 
 const LoginForm = () => {
-  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,12 +17,12 @@ const LoginForm = () => {
   const [data, setData] = useState({});
   const history = useHistory();
 
- async function  googleLogin(){
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-  })
+  async function googleLogin() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
   }
- 
+
   const handleInputChange = (event) => {
     setFormData({
       ...formData,
@@ -44,42 +44,40 @@ const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-setIsLoading(true)
-fetch("http://localhost:8000/login", {
-  method: "POST",
-  headers: { "content-type": "application/json" },
-  body: JSON.stringify(formData),
-})
-.then((res) => {
-  if (res.status !== 200) {
-    throw new Error("Login failed");
-  }
-  // console.log("Login form submitted: ", formData);
-  return res.json();
-})
-.then((data) => {
-  const token = data.role; // extract the token from the response
-  const Name=data.results[0]["name"]
-  sessionStorage.setItem("Name", Name); 
-  sessionStorage.setItem("token", token); // save the token in local storage
-  console.log("Name: "+Name);
-  setData(data);
-  setSignUpSuccess(true);
-  setTimeout(() => {
-    history.push("/");
-    window.location.reload();
-  }, 3000);
-})
-.catch((err) => {
-  setinvalidLogin(true);
-  setFormData({
-    email: "",
-    password: "",
-  });
-  console.error(err.message);
-});
-// setIsLoading(false)
-};
+    setIsLoading(true);
+    fetch("http://localhost:8000/login", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then((res) => {
+        if (res.status !== 200) {
+          throw new Error("Login failed");
+        }
+        // console.log("Login form submitted: ", formData);
+        return res.json();
+      })
+      .then((data) => {
+        const token = data.token;
+        var expire = new Date();
+        expire.setTime(expire.getTime() + 24 * 60 * 1000);
+        Cookies.set("tokens", token, { expires: expire, session: true }); // save the token in a cookie
+        setTimeout(() => {
+          history.push("/");
+          window.location.reload();
+        }, 1000);
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        setinvalidLogin(true);
+        setFormData({
+          email: "",
+          password: "",
+        });
+        console.error(err.message);
+      });
+    // setIsLoading(false)
+  };
 
   return (
     <div className="signup-form">
@@ -106,17 +104,19 @@ fetch("http://localhost:8000/login", {
             value={formData.password}
             onChange={handleInputChange}
           />
-          <input style={{width:"20px"}}
+          <input
+            style={{ width: "20px", marginTop:'3px' }}
             type="checkbox"
             id="showPassword"
             checked={showPassword}
             onChange={() => setShowPassword(!showPassword)}
-          /><b>Show password</b>
+          />
+          <b>Show password</b>
         </div>
-        <button type="submit">{isLoading?'Loading...':'Login'}</button>
+        <button type="submit">{isLoading ? "Loading..." : "Login"}</button>
       </form>
 
-      <h4>
+      <h4 style={{ textAlign: "center", marginTop: "1px" }}>
         Don't have an account?{" "}
         {
           <a
@@ -126,8 +126,16 @@ fetch("http://localhost:8000/login", {
             Sign up
           </a>
         }
+        <div className="line-container">
+          <div className="line"></div>
+          <div className="or">or</div>
+          <div className="line"></div>
+        </div>
       </h4>
-      <button onClick={googleLogin}>Sign up with google</button>
+      <button className="google-btn" onClick={googleLogin}>
+        <FcGoogle size={20} style={{ marginRight: "50px" }} /> Continue With
+        Google
+      </button>
       {signUpSuccess && (
         <div style={{ color: "green" }} className="signup-success-popup">
           <p>Login successful {data.message}! Welcome</p>

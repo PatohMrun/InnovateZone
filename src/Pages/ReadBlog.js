@@ -3,6 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import useFetch from "../Components/Fetch";
 import CommentMessages from "../Components/ComMessages";
 import Replies from "../Components/ComReplies";
+import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 import "../styles/ReadBog.css";
 
@@ -22,6 +24,17 @@ const ReadBlogs = () => {
     });
   };
   
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    const token = Cookies.get("tokens");
+    if(token == null){
+      return;
+    }
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    setUserRole(role);
+  }, []);
  
   return (
     <div className="myBlogs">
@@ -37,20 +50,11 @@ const ReadBlogs = () => {
       {pending && <div>Loading...</div>}
       {Error && <div>An error occured...</div>}
 
-      {/* <h3
-        style={{
-          textAlign: "center",
-          fontSize: "1.4rem",
-          textDecoration: "underline",
-          margin: "10px",
-        }}
-      >
-        Comments
-      </h3> */}
       <CommentMessages />
       <Replies />
       <br />
-      {data && <button onClick={Delete}>Delete Post</button>}
+
+      {data && userRole === "admin" && <button onClick={Delete}>Delete Post</button>}
     </div>
   );
 };

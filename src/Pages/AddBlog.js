@@ -3,15 +3,29 @@ import { useHistory } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../styles/AddBlog.css";
+import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
+
 
 const AddBlog = () => {
   const [userRole, setUserRole] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
-    const role = sessionStorage.getItem("token");
+    const token = Cookies.get("tokens");
+    if(token == null){
+      return;
+    }
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
     setUserRole(role);
     setIsLoaded(true);
   }, []);
+
+  // useEffect(() => {
+  //   const role = sessionStorage.getItem("token");
+  //   setUserRole(role);
+  // }, []);
 
   const [Title, setTitle] = useState("");
   const [content, setContent] = useState("");

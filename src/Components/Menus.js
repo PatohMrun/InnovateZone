@@ -1,8 +1,10 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../styles/Header.css";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import supabase from "../supabase";
+import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 const showHideMenu = () => {
   const show = document.querySelectorAll(".navbar a");
@@ -38,32 +40,57 @@ const Menu = () => {
   const [isLoggedin, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null);
   const [userName, setuserName] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     
-    const role = sessionStorage.getItem("token");
+    const token = Cookies.get("tokens");
+
+    if(token == null){
+      return;
+    }
+    const decodedToken = jwtDecode(token);
+    const role = decodedToken.role;
+    const name = decodedToken.name;
     setUserRole(role);
-    const Name = sessionStorage.getItem("Name");
-    setuserName(Name);
-    supabase.auth.getUser().then((res)=>{
-      const fullName = res.data.user.user_metadata.full_name;
-      setuserName(fullName)
-      if(fullName !== null){
-        setIsLoggedIn(true);
-      }
-    })
+    setuserName(name);
+
     if (role !== null) {
       setIsLoggedIn(true);
     }
     
-  }, [userRole]);
-  console.log(userName);
-
-  const handleLogout = () => {
-    sessionStorage.removeItem("token");
-    setIsLoggedIn(false);
-    sessionStorage.removeItem("Name");
+  }, [userName]);
+  useEffect(() => {
+    supabase.auth.getUser().then((res)=>{
+      const user = res.data.user;
+      if (user) {
+        const fullName = user.user_metadata.full_name;
+        console.log(fullName);
+        setuserName(fullName)
+        if(fullName !== null){
+          setIsLoggedIn(true);
+        }
+      }
+    });
+  }, [setuserName, setIsLoggedIn]);
+  const handleLogout = async () => {
+    if (userName) {
+      supabase.auth.signOut()
+        .then(() => {
+          Cookies.remove("tokens");
+          setIsLoggedIn(false);
+          history.push("/login");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      Cookies.remove("tokens");
+      setIsLoggedIn(false);
+      history.push("/login");
+    }
   };
+  
   return (
     <div className="Menus">
       <nav className="navbar">
