@@ -45,7 +45,7 @@ const LoginForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    fetch("htts://blog-server-zeta.vercel.app/login", {
+    fetch("https://blog-server-zeta.vercel.app/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(formData),
@@ -54,8 +54,10 @@ const LoginForm = () => {
         if (res.status !== 200) {
           throw new Error("Login failed");
         }
-        // htts://blog-server-zeta.vercel.app/
-        // http://localhos:8000/
+        //https://blog-server-zeta.vercel.app/
+        // https://blog-server-zeta.vercel.app/
+        // https://blog-server-zeta.vercel.app/
+        // htt://localhost:8000/
         // console.log("Login form submitted: ", formData);
         return res.json();
       })
