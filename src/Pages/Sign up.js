@@ -68,7 +68,7 @@ useEffect(() => {
       };
 
 
-    fetch("http://localhost:8000/signUps",{
+    fetch("https://blog-server-vert-psi.vercel.app/signUps",{
         method: "POST",
         headers: {'content-type':'application/json'},
         body: JSON.stringify(data)       

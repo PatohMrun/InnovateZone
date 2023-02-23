@@ -46,7 +46,7 @@ const AddBlog = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const blog = { Title, content, Author, BlogType };
-    fetch("http://localhost:8000/blogs", {
+    fetch("https://blog-server-vert-psi.vercel.app/blogs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),

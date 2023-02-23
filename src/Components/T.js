@@ -7,12 +7,12 @@ const CommentMessagess = () => {
       data: comments,
       pending: pending2,
       error2,
-    } = useFetch("http://localhost:8000/getComments/" + id);
+    } = useFetch("https://blog-server-vert-psi.vercel.app/getComments/" + id);
     const {
       data: replies,
       pending: pending3,
       error4,
-    } = useFetch("http://localhost:8000/getReply");
+    } = useFetch("https://blog-server-vert-psi.vercel.app/getReply");
     const [replyForm, setreplyForm] = useState(false);
     const [CommentId, setCommentId] = useState(null);
     const [formData, setformData] = useState({

@@ -19,7 +19,7 @@ const CategoryBlogs = ({ category, title }) => {
     setUserRole(role);
   }, []);
 
-  const { data, pending, Errors } = useFetch("http://localhost:8000/Blogs")
+  const { data, pending, Errors } = useFetch("https://blog-server-vert-psi.vercel.app/Blogs")
 
   return (
     <div>

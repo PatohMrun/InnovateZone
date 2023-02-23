@@ -45,7 +45,7 @@ const LoginForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    fetch("http://localhost:8000/login", {
+    fetch("https://blog-server-vert-psi.vercel.app/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(formData),
@@ -54,6 +54,8 @@ const LoginForm = () => {
         if (res.status !== 200) {
           throw new Error("Login failed");
         }
+        //https://blog-server-vert-psi.vercel.app/
+        //http://localhost:8000/
         // console.log("Login form submitted: ", formData);
         return res.json();
       })

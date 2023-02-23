@@ -19,7 +19,7 @@ const ListedBlogs= ()=>{
     setUserRole(role);
   }, []);
   
-  const { data, pending, Errors}=useFetch("http://localhost:8000/blogs")
+  const { data, pending, Errors}=useFetch("https://blog-server-vert-psi.vercel.app/blogs")
     return(
         <div>
       {userRole === "admin" ? (

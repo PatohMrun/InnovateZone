@@ -33,7 +33,7 @@ const Replies = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/comments", {
+      const response = await fetch("https://blog-server-vert-psi.vercel.app/comments", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),

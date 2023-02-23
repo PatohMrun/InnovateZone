@@ -14,12 +14,12 @@ const CommentMessages = () => {
     data: comments,
     pending: pending2,
     error2,
-  } = useFetch("http://localhost:8000/getComments/" + id);
+  } = useFetch("https://blog-server-vert-psi.vercel.app/getComments/" + id);
   const {
     data: likes,
     pending: ped,
     error3,
-  } = useFetch("http://localhost:8000/getlikes/" + id);
+  } = useFetch("https://blog-server-vert-psi.vercel.app/getlikes/" + id);
 if(likes){
   // console.log(likes);
   // <h3>Loading....</h3>
@@ -46,7 +46,7 @@ if(likes){
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/comments", {
+      const response = await fetch("https://blog-server-vert-psi.vercel.app/comments", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
@@ -76,7 +76,7 @@ if(likes){
       isLiked:1,
     }
     setLikes(parseInt(No_of_Likes) + 1);
-    const response= await fetch("http://localhost:8000/like", {
+    const response= await fetch("https://blog-server-vert-psi.vercel.app/like", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify( Likes_data ),   
