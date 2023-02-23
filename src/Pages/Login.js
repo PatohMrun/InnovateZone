@@ -55,7 +55,7 @@ const LoginForm = () => {
           throw new Error("Login failed");
         }
         //https://blog-server-vert-psi.vercel.app/
-        //http://localhost:8000/
+        // http://localhost:8000/
         // console.log("Login form submitted: ", formData);
         return res.json();
       })
