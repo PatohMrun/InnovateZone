@@ -63,7 +63,7 @@ const StaffSignUp = () => {
 //         setPasswordError(true);
 //         return;
 //       }
-    fetch("https://blog-server-vert-psi.vercel.app/signUpAdmins",{
+    fetch("https://blog-server-zeta.vercel.app/signUpAdmins",{
         method: "POST",
         headers: {'content-type':'application/json'},
         body: JSON.stringify(data)       
