@@ -92,15 +92,6 @@ const ListedBlogs = () => {
           <BsFillChatDotsFill size={26} onClick={handleClickMessages} />
         </div>
       )}
-      {data === null && (
-        <div className="SpecificBlog">
-        <h3>
-          <b style={{ color: "white", marginTop: "-20px" }}>
-            Coming Soon
-          </b>
-        </h3>
-      </div>
-      )}
       {userRole === "admin" ? (
         <div id="UpdateBlog">
           <a id="AddBlog" href="/Add blogs">
@@ -204,7 +195,9 @@ const ListedBlogs = () => {
             </div>
           </div>
         ) : (
-          <div></div>
+          <div className="GuestBlogger">
+            <h2>Coming soon</h2>
+          </div>
         )}
         <br />
       </div>
