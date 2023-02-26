@@ -85,13 +85,21 @@ const ListedBlogs = () => {
       );
     };
   };
-
   return (
     <div>
       {userEmail === "jgathiru02@gmail.com" && (
         <div className="message-Icon">
           <BsFillChatDotsFill size={26} onClick={handleClickMessages} />
         </div>
+      )}
+      {data === null && (
+        <div className="SpecificBlog">
+        <h3>
+          <b style={{ color: "white", marginTop: "-20px" }}>
+            Coming Soon
+          </b>
+        </h3>
+      </div>
       )}
       {userRole === "admin" ? (
         <div id="UpdateBlog">

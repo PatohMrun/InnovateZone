@@ -6,9 +6,9 @@ create database blogs;
     Content longtext not null,
     BlogType varchar(100) not null,
     Author varchar(50) not null,
-    email VARCHAR(255) NOT NULL,
-    FOREIGN KEY(email) REFERENCES Admins(email)
+    email VARCHAR(255) NOT NULL
     );
+    FOREIGN KEY(email) REFERENCES Admins(email)
 
 
 CREATE TABLE users (

@@ -54,8 +54,8 @@ const LoginForm = () => {
         if (res.status !== 200) {
           throw new Error("Login failed");
         }
-        //https://blog-server-zeta.vercel.app/
-        // https://blog-server-zeta.vercel.app/
+        //http://blog-server-zeta.vercel.app/
+        // http://localhost:800/
         // console.log("Login form submitted: ", formData);
         return res.json();
       })
