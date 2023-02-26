@@ -72,6 +72,11 @@
   margin-top: -30px;
   margin-bottom: -20px;
 }
+/* .Categories{
+  background-image: url("../photos/BlogBack.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+} */
 .welcoming-admin {
   text-align: center;
   color: black;

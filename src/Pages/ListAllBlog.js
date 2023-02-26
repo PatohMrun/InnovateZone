@@ -85,6 +85,7 @@ const ListedBlogs = () => {
       );
     };
   };
+
   return (
     <div>
       {userEmail === "jgathiru02@gmail.com" && (
@@ -162,7 +163,7 @@ const ListedBlogs = () => {
               />
             </div>
           </section>
-        ) : filteredData === null && !Errors && !pending ? (
+        ) : userRole==='admin' && !Errors && !pending ? (
           <div className="GuestBlogger">
             {showStatistics && (
               <div id="All-stats">
@@ -196,7 +197,7 @@ const ListedBlogs = () => {
           </div>
         ) : (
           <div className="GuestBlogger">
-            <h2>Coming soon</h2>
+            <h2 style={{margin:"auto", color:"white"}}>Coming Soon</h2>
           </div>
         )}
         <br />
