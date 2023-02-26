@@ -50,8 +50,8 @@ const ReadBlogs = () => {
       {pending && <div>Loading...</div>}
       {Error && <div>An error occured...</div>}
 
-      <CommentMessages />
-      <Replies />
+   {!pending && !Error && <CommentMessages />}
+     {!pending && !Error && <Replies />}
       <br />
 
       {data && userRole === "admin" && <button onClick={Delete}>Delete Post</button>}

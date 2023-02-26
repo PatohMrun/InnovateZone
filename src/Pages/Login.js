@@ -76,7 +76,7 @@ const LoginForm = () => {
         });
         console.error(err.message);
       });
-    // setIsLoading(false)
+    setIsLoading(false)
   };
 
   return (

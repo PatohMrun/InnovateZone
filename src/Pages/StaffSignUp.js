@@ -15,6 +15,7 @@ const StaffSignUp = () => {
   });
   const [signUpSuccess, setSignUpSuccess] = useState(false);
   const [signUpError, setsignUpError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const history= useHistory();
@@ -47,7 +48,8 @@ const StaffSignUp = () => {
   
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+    setIsLoading(true);
+    setIsLoading(true);
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(formData.password, salt);
 
@@ -66,7 +68,7 @@ const StaffSignUp = () => {
     fetch("https://blog-server-zeta.vercel.app/signUpAdmins",{
         method: "POST",
         headers: {'content-type':'application/json'},
-        body: JSON.stringify(data)       
+        body: JSON.stringify(data)   
     }).then((res)=>{
       if (res.status === 500) {
         setsignUpError(true);
@@ -78,12 +80,12 @@ const StaffSignUp = () => {
       }
         console.log("Sign up form submitted: ", data);
         setSignUpSuccess(true);
-        setTimeout(()=>{
-            history.push('/login')
-        },[3000])
+        history.push('/login')
+        setIsLoading(false);
     }).catch((err)=>{
         console.log(err);
     })
+    setIsLoading(false)
   };
 
   return (
@@ -166,7 +168,8 @@ const StaffSignUp = () => {
             <p style={{color:"red"}}>Use a stronger password. Include characters and numbers</p>
           </div>
         )}
-        <button type="submit">Sign Up</button>
+        {/* <button type="submit">Sign Up</button> */}
+        <button type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
       </form>
 
     </div>
