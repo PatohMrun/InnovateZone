@@ -1,57 +1,39 @@
-// import React from "react";
-// import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
-// import "../styles/Footer.css"
-
-// function Footer() {
-//     return (
-//       <footer>
-// <div className="footer-info">
-//   <p>© 2023 My Blog. All rights reserved.</p>
-//   <p>
-//     Contact us: <a href="mailto:youngprofessor991@gmail.com">contact@myblog.com</a>
-//   </p>
-//   <p>Privacy Policy | Terms of Use</p>
-// </div>
-//         <div className="footer-social">
-//           <p>Follow us:</p>
-//           <ul>
-//             <li>
-//               <a href="https://www.facebook.com/myblog">
-//                 <FaFacebook />
-//               </a>
-//             </li>
-//             <li>
-//               <a href="https://www.twitter.com/justoegitau">
-//                 <FaTwitter />
-//               </a>
-//             </li>
-//             <li>
-//               <a href="https://www.instagram.com/myblog">
-//                 <FaInstagram />
-//               </a>
-//             </li>
-//           </ul>
-//         </div>
-//       </footer>
-//     );
-//   }
-
-//   export default Footer;
-
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Footer.css";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { RiWhatsappFill } from "react-icons/ri";
 
 function Footer() {
+  const [messageReceived, setMessageReceived]=useState(false);
+  const [formMessages, setFormMessages] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const handleInputChange = (event) => {
+    setFormMessages({
+      ...formMessages,
+      [event.target.name]: event.target.value,
+    });
+  };
+  const handleMessageSubmit = (event) => {
+    event.preventDefault();
+    fetch("https://blog-server-zeta.vercel.app/messages", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(formMessages),
+    }).then(() => {
+      setMessageReceived(true);
+      setFormMessages({
+        name: "",
+        email: "",
+        message: "",
+      });
+      console.log("submited");
+    });
+  };
   return (
     <footer>
-      {/* <div className="footer-info">
-        <p>© 2023 My Blog Name. All rights reserved.</p>
-        <p>123 Main St. Anytown, USA 12345</p>
-        <p>Phone: 555-555-5555</p>
-        <p>Email: info@myblogname.com</p>
-      </div> */}
       <div className="footer-info">
         <p>© 2023 My Blog. All rights reserved.</p>
         <p> Eldoret, Kenya 12345</p>
@@ -65,23 +47,45 @@ function Footer() {
         <p>Privacy Policy | Terms of Use</p>
       </div>
       <div className="footer-contact">
-        <form>
+        <form onSubmit={handleMessageSubmit}>
           <h3>Contact Us</h3>
           <div className="form-group">
             <label htmlFor="message">Message:</label>
-            <textarea id="message" name="message" rows="3" required></textarea>
+            <textarea
+              id="message"
+              name="message"
+              rows="3"
+              required
+              value={formMessages.message}
+              onChange={handleInputChange}
+            ></textarea>
           </div>
           <div className="form-flex">
             <div className="form-group">
               <label htmlFor="name">Name:</label>
-              <input type="text" id="name" name="name" required />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                value={formMessages.name}
+                onChange={handleInputChange}
+              />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email:</label>
-              <input type="email" id="email" name="email" required />
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                value={formMessages.email}
+                onChange={handleInputChange}
+              />
             </div>
           </div>
           <button type="submit">Send</button>
+          {messageReceived && <div><br /><h4 style={{color:'green', textAlign:'center'}}>Message received Successfully!</h4></div> }
         </form>
       </div>
       <div className="footer-social">

@@ -10,6 +10,7 @@ import Cookies from 'js-cookie';
 const AddBlog = () => {
   const [userRole, setUserRole] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     const token = Cookies.get("tokens");
@@ -18,10 +19,11 @@ const AddBlog = () => {
     }
     const decodedToken = jwtDecode(token);
     const role = decodedToken.role;
+    const email = decodedToken.email;
+    setEmail(email);
     setUserRole(role);
     setIsLoaded(true);
   }, []);
-
   // useEffect(() => {
   //   const role = sessionStorage.getItem("token");
   //   setUserRole(role);
@@ -45,7 +47,7 @@ const AddBlog = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const blog = { Title, content, Author, BlogType };
+    const blog = { Title, content, Author, BlogType,email };
     fetch("https://blog-server-zeta.vercel.app/blogs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -65,7 +67,6 @@ const AddBlog = () => {
         console.error("There was a problem with the fetch operation:", error);
       });
   };
-  console.log("The user: " + userRole);
   if (isLoaded && userRole !== "admin") {
     window.location.href = "/";
     console.log("Unauthorized Access");

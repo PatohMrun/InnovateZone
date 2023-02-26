@@ -54,7 +54,6 @@ const Menu = () => {
     const name = decodedToken.name;
     setUserRole(role);
     setuserName(name);
-
     if (role !== null) {
       setIsLoggedIn(true);
     }

@@ -56,8 +56,6 @@ const LoginForm = () => {
         }
         //https://blog-server-zeta.vercel.app/
         // https://blog-server-zeta.vercel.app/
-        // https://blog-server-zeta.vercel.app/
-        // htt://localhost:8000/
         // console.log("Login form submitted: ", formData);
         return res.json();
       })

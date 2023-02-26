@@ -11,6 +11,7 @@ import RichTextEditor from './Pages/Test';
 import StaffSignUp from './Pages/StaffSignUp'
 import CommentMessagess from './Components/T';
 import Footer from './Components/Footer';
+import Messages from './Pages/Messages';
 import './styles/index.css'; 
 
 
@@ -33,6 +34,7 @@ function App() {
           <Route path='/login' component={ LoginForm } />
           <Route path='/text' component={ RichTextEditor } />
           <Route path='/Blogger' component={ StaffSignUp } />
+          <Route path='/messages' component={ Messages } />
           <Route component={ListedBlogs} />
      </Switch>
      </div>
