@@ -45,7 +45,7 @@ const LoginForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsLoading(true);
-    fetch("https://blog-server-zeta.vercel.app/login", {
+    fetch("http://blog-server-zeta.vercel.app/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(formData),
@@ -60,6 +60,13 @@ const LoginForm = () => {
         return res.json();
       })
       .then((data) => {
+        const regStatus= data.Approval;
+        if (regStatus!=='Approved') {
+          console.log("The user is not approved");
+        history.push("/pending");
+          return
+        }
+
         const token = data.token;
         var expire = new Date();
         expire.setTime(expire.getTime() + 24 * 60 * 1000);

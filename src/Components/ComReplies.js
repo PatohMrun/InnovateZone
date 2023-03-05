@@ -33,7 +33,7 @@ const Replies = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("https://blog-server-zeta.vercel.app/comments", {
+      const response = await fetch("http://blog-server-zeta.vercel.app/comments", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),

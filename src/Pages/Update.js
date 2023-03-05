@@ -1,21 +1,36 @@
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import useFetch from "../Components/Fetch";
 import { useHistory } from "react-router-dom";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import "../styles/AddBlog.css";
-import jwtDecode from 'jwt-decode';
-import Cookies from 'js-cookie';
+import jwtDecode from "jwt-decode";
+import Cookies from "js-cookie";
 
-
-const AddBlog = () => {
+const Update = () => {
+  const { id } = useParams();
   const [userRole, setUserRole] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
+  const [Title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [Author, setAuthor] = useState("Sir Timothy");
+  const [BlogType, setBlogType] = useState("Technologies");
+  const history = useHistory();
+  const { data, pending, Error } = useFetch(
+    "http://blog-server-zeta.vercel.app/blogs/" + id
+  );
+
+  useEffect(() =>{
+    {data && setTitle(data[0].Title)}
+    {data && setContent(data[0].Content)}
+    {data && setAuthor(data[0].Author)}
+  }
+  ,[id, data])
 
   useEffect(() => {
     const token = Cookies.get("tokens");
-    if(token == null){
+    if (token == null) {
       return;
     }
     const decodedToken = jwtDecode(token);
@@ -25,31 +40,21 @@ const AddBlog = () => {
     setUserRole(role);
     setIsLoaded(true);
   }, []);
-  // useEffect(() => {
-  //   const role = sessionStorage.getItem("token");
-  //   setUserRole(role);
-  // }, []);
 
-  const [Title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [Author, setAuthor] = useState("Sir Timothy");
-  const [BlogType, setBlogType] = useState("Technologies");
-  const history = useHistory();
-  const toolbar = [  ['bold', 'italic', 'underline', 'strike'],       
-  [{ 'header': [1, 2, 3, false] }],
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  ['link', 'image'], 
-  [{ 'color': [] }, { 'background': [] }],
-  [{ 'font': [] }],
-  [{ 'align': [] }],
-  ['clean']
-];
-
-
+  const toolbar = [
+    ["bold", "italic", "underline", "strike"],
+    [{ header: [1, 2, 3, false] }],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["link", "image"],
+    [{ color: [] }, { background: [] }],
+    [{ font: [] }],
+    [{ align: [] }],
+    ["clean"],
+  ];
   const handleSubmit = (e) => {
     e.preventDefault();
-    const blog = { Title, content, Author, BlogType,email };
-    fetch("http://blog-server-zeta.vercel.app/blogs", {
+    const blog = { Title, content, Author, BlogType, email, id };
+    fetch("http://blog-server-zeta.vercel.app/blogUpdate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),
@@ -58,25 +63,22 @@ const AddBlog = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        console.log("Added");
         return response.json();
       })
       .then(() => {
-        history.push("/");
+        history.push("/Blogs/"+id);
       })
       .catch((error) => {
         setError(true)
         console.error("There was a problem with the fetch operation:", error);
       });
   };
-  if (isLoaded && userRole !== "admin") {
-    window.location.href = "/";
-    console.log("Unauthorized Access");
-  } else {
-    return (
+
+  return (
+    <div className="update">
       <div className="BlogInput">
         <form onSubmit={handleSubmit}>
-          <h2>Add a new blog here</h2>
+          <h2>Update Your blog here</h2>
           <br />
           <label>Title</label>
           <input
@@ -91,9 +93,9 @@ const AddBlog = () => {
 
           {/* <textarea name="" id="" cols="30" rows="10"></textarea> */}
           <ReactQuill
-          modules={{
-            toolbar: toolbar
-          }}
+            modules={{
+              toolbar: toolbar,
+            }}
             className="TextArea"
             value={content}
             onChange={(value) => setContent(value)}
@@ -122,15 +124,15 @@ const AddBlog = () => {
             onChange={(e) => setAuthor(e.target.value)}
           />
           <br />
-          <input type="submit" value="Submit" />
-          
+          <input type="submit" value="Update" />
           {error && <div>An error occured when inserting a blog</div>}
+
         </form>
         <br />
         <br />
-        {/* <h2>Coming soon...</h2> */}
       </div>
-    );
-  }
+    </div>
+  );
 };
-export default AddBlog;
+
+export default Update;

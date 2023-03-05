@@ -3,11 +3,13 @@ import useFetch from "../Components/Fetch";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { BsFillChatDotsFill } from "react-icons/bs";
+import { FcApprove } from "react-icons/fc";
 import React, { useState, useEffect } from "react";
 import "../styles/categoryBlogs.css";
 import jwtDecode from "jwt-decode";
 import Cookies from "js-cookie";
 import Messages from "./Messages";
+import Approval from "../Config/Approval";
 
 // To know the role of user and grant them permission to add blog
 const ListedBlogs = () => {
@@ -27,12 +29,12 @@ const ListedBlogs = () => {
     setUserRole(role);
   }, []);
 
-  const { data, pending, Errors } = useFetch("https://blog-server-zeta.vercel.app/blogs");
+  const { data, pending, Errors } = useFetch("http://blog-server-zeta.vercel.app/blogs");
   const {
     data: Admins,
     pending: ped1,
     Errors: err1,
-  } = useFetch("https://blog-server-zeta.vercel.app/GuestBloggers");
+  } = useFetch("http://blog-server-zeta.vercel.app/GuestBloggers");
   let GuestBloggers=null;
   if (Admins) {
     GuestBloggers=Admins[0].Bloggers
@@ -85,13 +87,45 @@ const ListedBlogs = () => {
       );
     };
   };
+  const handleClickApproval = () => {
+    const width = 900;
+    const height = 600;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+
+    const approvalWindow = window.open(
+      "/Approval",
+      "Messages",
+      `width=${width},height=${height},left=${left},top=${top},menubar=no,toolbar=no`
+    );
+
+    approvalWindow.onload = () => {
+      approvalWindow.document.body.innerHTML = "<div id='root'></div>";
+      ReactDOM.render(
+        <BrowserRouter>
+          <Approval />
+        </BrowserRouter>,
+        approvalWindow.document.getElementById("root")
+      );
+    };
+  };
+  
+
 
   return (
     <div>
       {userEmail === "jgathiru02@gmail.com" && (
-        <div className="message-Icon">
-          <BsFillChatDotsFill size={26} onClick={handleClickMessages} />
+       <div className="Message_Approval">
+        <div className="message-Icon" onClick={handleClickMessages}>
+          <BsFillChatDotsFill size={26} />
+          <h5>Messages</h5>
         </div>
+        <div className="PendingApproval" onClick={handleClickApproval} >
+          <FcApprove size={26}/>
+          <h5>Pending <br /> Approvals</h5>
+        </div>
+       </div>
+        
       )}
       {userRole === "admin" ? (
         <div id="UpdateBlog">

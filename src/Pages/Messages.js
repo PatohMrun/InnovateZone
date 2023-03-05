@@ -3,7 +3,7 @@ import useFetch from "../Components/Fetch";
 import "../styles/Messages.css"
 
 function Messages() {
-  const {data:sms, error, pending}=useFetch('https://blog-server-zeta.vercel.app/sms')
+  const {data:sms, error, pending}=useFetch('http://blog-server-zeta.vercel.app/sms')
 
   if (pending) {
     return <p>Loading...</p>;

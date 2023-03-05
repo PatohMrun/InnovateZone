@@ -19,7 +19,7 @@ const CategoryBlogs = ({ category, title }) => {
     setUserRole(role);
   }, []);
 
-  const { data, pending, Errors } = useFetch("https://blog-server-zeta.vercel.app/Blogs")
+  const { data, pending, Errors } = useFetch("http://blog-server-zeta.vercel.app/Blogs")
 
   return (
     <div>

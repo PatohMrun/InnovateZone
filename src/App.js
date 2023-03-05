@@ -12,6 +12,10 @@ import StaffSignUp from './Pages/StaffSignUp'
 import CommentMessagess from './Components/T';
 import Footer from './Components/Footer';
 import Messages from './Pages/Messages';
+import Test from './Pages/Test1234';
+import Update from './Pages/Update';
+import Approval from './Config/Approval';
+import Pending from './Config/PendingApproval';
 import './styles/index.css'; 
 
 
@@ -35,6 +39,11 @@ function App() {
           <Route path='/text' component={ RichTextEditor } />
           <Route path='/Blogger' component={ StaffSignUp } />
           <Route path='/messages' component={ Messages } />
+          <Route path='/Test' component={ Test } />
+          <Route path='/Approval' component={ Approval } />
+          <Route path='/pending' component={ Pending } />
+
+          <Route path='/Update/:id' component={ Update } />
           <Route component={ListedBlogs} />
      </Switch>
      </div>

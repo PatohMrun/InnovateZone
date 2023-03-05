@@ -28,8 +28,19 @@
 .message-Icon{
   position: fixed;
   top: 17%;
-  right: 7%;
+  right: 10%;
   color: #ffb700;
+  cursor: pointer;
+}
+.PendingApproval{
+  position: fixed;
+  top: 17%;
+  right: 2%;
+  color: #ffb700;
+  cursor: pointer;
+}
+.Message_Approval h5{
+  color: #000;
 }
 .EachBlog {
   display: flex;
@@ -41,6 +52,39 @@
   margin-right: auto;
   border-radius: 10px;
   padding: 10px;
+}
+.Approval{
+  background-image: url("../photos/BlogBack.jpg");
+  min-height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.Approval h3{
+  text-align: center;
+}
+.EachRequest{
+  max-width: 60%;
+  min-height: 100px;
+  background-color: #f0ebeb;
+  margin: auto;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+
+.EachRequest button{
+  margin: 10px;
+}
+.Descriptions{
+  margin: 10px;
+}
+
+.EachHeader{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  margin-bottom: 10px;
 }
 
 .SpecificBlog {
@@ -119,7 +163,12 @@
 #list-all-blogs{
   padding: 20px;
 }
-
+@media only screen and (max-width: 768px) {
+  .EachRequest{
+    max-width: 70%;
+  }
+  
+}
 @media only screen and (max-width: 600px) {
   .EachBlog {
     max-width: 90%;
@@ -127,6 +176,14 @@
   #views {
     height: 20%;
     width: 115px;
+  }
+  .EachHeader{
+    display: block;
+    margin: 10px;
+    margin-bottom: 10px;
+  }
+  .EachRequest{
+    max-width: 80%;
   }
   .GuestBlogger {
     display: block;

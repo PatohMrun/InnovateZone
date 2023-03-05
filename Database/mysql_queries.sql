@@ -6,7 +6,8 @@ create database blogs;
     Content longtext not null,
     BlogType varchar(100) not null,
     Author varchar(50) not null,
-    email VARCHAR(255) NOT NULL
+    email VARCHAR(255) NOT NULL,
+    Date_created varchar(20) NOT NULL
     );
     FOREIGN KEY(email) REFERENCES Admins(email)
 
@@ -22,7 +23,8 @@ CREATE TABLE Admins (
   email VARCHAR(255) NOT NULL PRIMARY KEY,
   password VARBINARY(60) NOT NULL,
   phone_number VARCHAR(20) NOT NULL,
-  description 	VARCHAR(255) NOT NULL
+  description 	TEXT NOT NULL,
+  Approval VARCHAR(30) DEFAULT "pending"
 );
 
 

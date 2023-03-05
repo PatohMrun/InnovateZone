@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import bcrypt from "bcryptjs";
 import { useHistory } from "react-router-dom";
-import "../styles/Credentials.css"
+import "../styles/Credentials.css";
+import supabase from "../supabase";
 
 
 
@@ -19,7 +20,6 @@ const StaffSignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const history= useHistory();
-
   const handleInputChange = (event) => {
     setFormData({
       ...formData,
@@ -53,6 +53,8 @@ const StaffSignUp = () => {
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(formData.password, salt);
 
+
+
     const data = {
       name: formData.name,
       email: formData.email,
@@ -65,7 +67,7 @@ const StaffSignUp = () => {
 //         setPasswordError(true);
 //         return;
 //       }
-    fetch("https://blog-server-zeta.vercel.app/signUpAdmins",{
+    fetch("http://blog-server-zeta.vercel.app/signUpAdmins",{
         method: "POST",
         headers: {'content-type':'application/json'},
         body: JSON.stringify(data)   
@@ -80,7 +82,7 @@ const StaffSignUp = () => {
       }
         console.log("Sign up form submitted: ", data);
         setSignUpSuccess(true);
-        history.push('/login')
+        history.push('/pending')
         setIsLoading(false);
     }).catch((err)=>{
         console.log(err);
@@ -171,7 +173,6 @@ const StaffSignUp = () => {
         {/* <button type="submit">Sign Up</button> */}
         <button type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
       </form>
-
     </div>
   );
 };
