@@ -3,11 +3,12 @@
     align-items: center;
     justify-content: center;
     margin-top: 50px;
-    margin-bottom: 70px;
-    height: 80vh;
+    /* margin-bottom: 70px; */
+    min-height: 80vh;
   }
   .BlogInput form {
     max-width: 55%;
+    margin-bottom: 20px;
   }
   .BlogInput h2 {
     text-align: center;
@@ -31,10 +32,15 @@
     max-height: 180px;
     overflow: auto !important;
   }
-
+.Button{
+  background-color: #86C4DD;
+}
+.Button:hover{
+  background-color: #1E83F7;
+}
   @media only screen and (max-width: 600px) {
     .BlogInput form {
-        width: 85%;
+        width: 90%;
       }
       .BlogInput form {
         margin-top: 10px;

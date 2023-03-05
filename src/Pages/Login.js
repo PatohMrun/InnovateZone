@@ -60,13 +60,13 @@ const LoginForm = () => {
         return res.json();
       })
       .then((data) => {
+        const User= data.message;
         const regStatus= data.Approval;
-        if (regStatus!=='Approved') {
+        if (regStatus!=='Approved' && User !== 'as user') {
           console.log("The user is not approved");
         history.push("/pending");
           return
         }
-
         const token = data.token;
         var expire = new Date();
         expire.setTime(expire.getTime() + 24 * 60 * 1000);

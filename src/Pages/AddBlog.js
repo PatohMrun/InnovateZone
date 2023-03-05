@@ -32,13 +32,13 @@ const AddBlog = () => {
 
   const [Title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [Author, setAuthor] = useState("Sir Timothy");
+  const [Author, setAuthor] = useState("");
   const [BlogType, setBlogType] = useState("Technologies");
   const history = useHistory();
   const toolbar = [  ['bold', 'italic', 'underline', 'strike'],       
   [{ 'header': [1, 2, 3, false] }],
   [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-  ['link', 'image'], 
+  // ['link', 'image'], 
   [{ 'color': [] }, { 'background': [] }],
   [{ 'font': [] }],
   [{ 'align': [] }],
@@ -69,6 +69,7 @@ const AddBlog = () => {
         console.error("There was a problem with the fetch operation:", error);
       });
   };
+  
   if (isLoaded && userRole !== "admin") {
     window.location.href = "/";
     console.log("Unauthorized Access");
@@ -122,7 +123,7 @@ const AddBlog = () => {
             onChange={(e) => setAuthor(e.target.value)}
           />
           <br />
-          <input type="submit" value="Submit" />
+          <input className="Button" type="submit" value="Submit" />
           
           {error && <div>An error occured when inserting a blog</div>}
         </form>
