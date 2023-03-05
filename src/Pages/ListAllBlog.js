@@ -29,12 +29,12 @@ const ListedBlogs = () => {
     setUserRole(role);
   }, []);
 
-  const { data, pending, Errors } = useFetch("http://blog-server-zeta.vercel.app/blogs");
+  const { data, pending, Errors } = useFetch("https://blog-server-zeta.vercel.app/blogs");
   const {
     data: Admins,
     pending: ped1,
     Errors: err1,
-  } = useFetch("http://blog-server-zeta.vercel.app/GuestBloggers");
+  } = useFetch("https://blog-server-zeta.vercel.app/GuestBloggers");
   let GuestBloggers=null;
   if (Admins) {
     GuestBloggers=Admins[0].Bloggers

@@ -2,11 +2,11 @@ import useFetch from "../Components/Fetch";
 import { useState, useEffect } from "react";
 
 const Approval = () => {
-  const { data, pending, error } = useFetch("http://blog-server-zeta.vercel.app/Approval");
+  const { data, pending, error } = useFetch("https://blog-server-zeta.vercel.app/Approval");
 
   const handleApprove = (e, email) => {
     e.preventDefault();
-    fetch("http://blog-server-zeta.vercel.app/Approved", {
+    fetch("https://blog-server-zeta.vercel.app/Approved", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ email })

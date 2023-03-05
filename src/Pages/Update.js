@@ -18,7 +18,7 @@ const Update = () => {
   const [BlogType, setBlogType] = useState("Technologies");
   const history = useHistory();
   const { data, pending, Error } = useFetch(
-    "http://blog-server-zeta.vercel.app/blogs/" + id
+    "https://blog-server-zeta.vercel.app/blogs/" + id
   );
 
   useEffect(() =>{
@@ -54,7 +54,7 @@ const Update = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const blog = { Title, content, Author, BlogType, email, id };
-    fetch("http://blog-server-zeta.vercel.app/blogUpdate", {
+    fetch("https://blog-server-zeta.vercel.app/blogUpdate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),
