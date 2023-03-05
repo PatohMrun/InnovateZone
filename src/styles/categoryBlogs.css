@@ -163,11 +163,21 @@
 #list-all-blogs{
   padding: 20px;
 }
+@media only screen and (max-width: 990px) {
+  .message-Icon{
+    top: 25%;
+    right: 10%;
+   
+  }
+  .PendingApproval{
+    top: 25%;
+    right: 1%;
+  }
+}
 @media only screen and (max-width: 768px) {
   .EachRequest{
     max-width: 70%;
   }
-  
 }
 @media only screen and (max-width: 600px) {
   .EachBlog {
@@ -184,6 +194,20 @@
   }
   .EachRequest{
     max-width: 80%;
+  }
+  .message-Icon{
+    position: fixed;
+    top: 25%;
+    right: 8%;
+    color: #ffb700;
+    cursor: pointer;
+  }
+  .PendingApproval{
+    position: fixed;
+    top: 15%;
+    right: 8%;
+    color: #ffb700;
+    cursor: pointer;
   }
   .GuestBlogger {
     display: block;
