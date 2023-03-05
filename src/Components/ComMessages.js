@@ -136,10 +136,10 @@ if(likes){
             style={iconStyle}
             onClick={handleLikeClick}
           />
-          <FaComment
+          {/* <FaComment
             style={{color:"#D36000", margin:"5px"}}
             size={26}
-          />
+          /> */}
            <div style={{ float: "right" }}>
       <FaShareAlt style={{ color: "#17ACCD", margin: "5px"}} size={26} />
       <FaFacebook className="share-icon" style={{ color: "#1773EA", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(facebookShareUrl, "Facebook")} />
