@@ -46,7 +46,7 @@ const StaffSignUp = () => {
   }, [passwordError, signUpError]);
 
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     setIsLoading(true);
@@ -62,7 +62,16 @@ const StaffSignUp = () => {
       description: formData.description,
       password: hashedPassword
     };
-
+    const { data:DataSupa, error } = await supabase.auth.signUp(data);
+    if (error) {
+      console.error('Sign-up error:', error);
+      setIsLoading(false);
+      return;
+    } else {
+      console.log('Sign-up successful');
+      const user = DataSupa.user;
+      console.log('User:', user);
+    }
 //  if (!/[A-Z]/.test(formData.password) || !/[a-z]/.test(formData.password) || !/\d/.test(formData.password)) {
 //         setPasswordError(true);
 //         return;
@@ -82,7 +91,8 @@ const StaffSignUp = () => {
       }
         console.log("Sign up form submitted: ", data);
         setSignUpSuccess(true);
-        history.push('/pending')
+        history.push('/verify');
+        // history.push('/pending')
         setIsLoading(false);
     }).catch((err)=>{
         console.log(err);
@@ -112,6 +122,7 @@ const StaffSignUp = () => {
             name="email"
             id="email"
             required
+            placeholder="Your valid email address"
             value={formData.email}
             onChange={handleInputChange}
           />

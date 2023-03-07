@@ -45,7 +45,7 @@ const Replies = () => {
           email: "",
           comments: "",
         });
-        window.location.reload();
+        // window.location.reload();
       } else if (!response.ok) {
         throw new Error("Error posting comment");
       }

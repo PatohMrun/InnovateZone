@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useE } from "react";
 import "../styles/Credentials.css";
 import supabase from "../supabase";
 
@@ -15,42 +15,57 @@ const Test = () => {
       [event.target.name]: event.target.value,
     });
   };
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { user, error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
     });
-    if(user){
-      console.log("The user has been created");
-    }
+    console.log(data);
     if (error) {
-      console.log("Error signing up:", error.message);
+      console.error('Sign-up error:', error);
     } else {
-      console.log("Signed up successfully:");
-        // console.log(user.email);
-    //   Send email verification and set email confirmation state
-    //   await supabase.auth.api.sendEmailVerification(formData.email);
-
-      
-    //   Send confirmation message to the user
-      window.alert(`Thank you for signing up! Please check your email at ${formData.email} to confirm your email address.`);
-      
-    //   Set up a listener to notify you once the email is confirmed
-      const { data } = await supabase.auth.onAuthStateChange((event, session) => {
-          if (event === "SIGNED_IN") {
-              const emailVerified = session.user.email_verified;
-              if (emailVerified) {
-                console.log("Email Verified");
-                  const confirmationMessage = `Email confirmed for user ${session.user.email}`;
-                  setEmailConfirmed(true);
-                    window.alert(confirmationMessage);
-          }
-        }
-      });
+      console.log('Sign-up successful');
+      const user = data.user;
+      console.log('User:', user);
     }
-  };
+  }
+
+
+  
+  
+
+// Listen for changes in the user's authentication state
+// supabase.auth.onAuthStateChange((event, session) => {
+//   if (event !== 'SIGNED_IN' && session.user.email_verified) {
+//     // User is signed in and email is verified, so update your database
+//     // with the user's information
+//     console.log("user mot verified");
+//     supabase
+//       .from('myTable')
+//       .insert({ email: session.user.email })
+//       .then((data) => {
+//         console.log('User added to database');
+//         // Perform your desired action here once the user is verified
+//         // without the need to refresh the page
+//       })
+//       .catch((error) => {
+//         console.error('Database insert error:', error);
+//       });
+//   }
+//   else{
+//     console.log("mmmmmm");
+//   }
+// });
+
+
+
+
+
+
+
+  
+  
 
   return (
     <div className="testing">
@@ -97,5 +112,35 @@ const Test = () => {
     </div>
   );
 };
-
 export default Test;
+
+
+
+// if(user){
+//   console.log("The user has been created");
+// }
+// if (error) {
+//   console.log("Error signing up:", error.message);
+// } else {
+//   console.log("Signed up successfully:");
+//     // console.log(user.email);
+// //   Send email verification and set email confirmation state
+// //   await supabase.auth.api.sendEmailVerification(formData.email);
+
+  
+// //   Send confirmation message to the user
+//   window.alert(`Thank you for signing up! Please check your email at ${formData.email} to confirm your email address.`);
+  
+// //   Set up a listener to notify you once the email is confirmed
+//   const { data } = await supabase.auth.onAuthStateChange((event, session) => {
+//       if (event === "SIGNED_IN") {
+//           const emailVerified = session.user.email_verified;
+//           if (emailVerified) {
+//             console.log("Email Verified");
+//               const confirmationMessage = `Email confirmed for user ${session.user.email}`;
+//               setEmailConfirmed(true);
+//                 window.alert(confirmationMessage);
+//       }
+//     }
+//   });
+// }

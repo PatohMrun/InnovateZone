@@ -5,16 +5,16 @@ import { FaComment, FaFacebook, FaShareAlt } from 'react-icons/fa';
 import { RiWhatsappFill } from 'react-icons/ri';
 import { GrTwitter } from 'react-icons/gr';
 import { MdEmail } from 'react-icons/md';
-
 import useFetch from "./Fetch";
+import Pusher from 'pusher-js'
+
+
 
 const CommentMessages = () => {
   const { id } = useParams();
-  const {
-    data: comments,
-    pending: pending2,
-    error2,
-  } = useFetch("https://blog-server-zeta.vercel.app/getComments/" + id);
+  const[comments,setComments]=useState([])
+  
+
   const {
     data: likes,
     pending: ped,
@@ -127,6 +127,60 @@ if(likes){
         setPopupWindow(null);
       }
     };
+    // const {
+    //   data: comments,
+    //   pending: pending2,
+    //   error2,
+    // } = useFetch("https://blog-server-zeta.vercel.app/getComments/" + id);
+
+    useEffect(() => {
+      fetch(`https://blog-server-zeta.vercel.app/getComments/${id}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data) {
+            setComments(data);
+          } else {
+            console.log('An error occurred');
+          }
+        });
+    }, [id]);
+    
+    useEffect(() => {
+      const pusher = new Pusher('7f4d57257fa18a056578', {
+        cluster: 'ap2',
+        encrypted: true
+      });
+    
+      const channel = pusher.subscribe('innovate-zone');
+      channel.bind('new-comment', data => {
+        console.log('Received new comment:', data); // Add this line to log incoming comments
+        setComments(prevComments => [...prevComments, data]);
+      });
+    
+      return () => {
+        channel.unbind_all();
+        channel.unsubscribe();
+      };
+    }, [id]);
+    
+    
+  // useEffect(() => {
+  //   const pusher = new Pusher("YOUR_APP_KEY", {
+  //     cluster: "YOUR_APP_CLUSTER",
+  //     encrypted: true
+  //   });
+  
+  //   const channel = pusher.subscribe("innovate-Zone");
+  //   channel.bind("new-comment", (data) => {
+  //     setComments([...comments, data]);
+  //   });
+  
+  //   return () => {
+  //     channel.unbind_all();
+  //     channel.unsubscribe();
+  //   };
+  // }, [comments]);
+
   return (
     <div>
       <div style={{ marginLeft: "10px", margin: "10px", marginTop: "70px" }}>

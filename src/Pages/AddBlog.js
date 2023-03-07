@@ -16,6 +16,7 @@ const AddBlog = () => {
   useEffect(() => {
     const token = Cookies.get("tokens");
     if(token == null){
+      setIsLoaded(true);
       return;
     }
     const decodedToken = jwtDecode(token);
@@ -25,10 +26,7 @@ const AddBlog = () => {
     setUserRole(role);
     setIsLoaded(true);
   }, []);
-  // useEffect(() => {
-  //   const role = sessionStorage.getItem("token");
-  //   setUserRole(role);
-  // }, []);
+  
 
   const [Title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -69,11 +67,15 @@ const AddBlog = () => {
         console.error("There was a problem with the fetch operation:", error);
       });
   };
-  
-  if (isLoaded && userRole !== "admin") {
-    window.location.href = "/";
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+  if (userRole !== "admin") {
+    history.push("/");
     console.log("Unauthorized Access");
-  } else {
+    return null;
+  }
+   else{
     return (
       <div className="BlogInput">
         <form onSubmit={handleSubmit}>

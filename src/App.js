@@ -16,6 +16,7 @@ import Test from './Pages/Test1234';
 import Update from './Pages/Update';
 import Approval from './Config/Approval';
 import Pending from './Config/PendingApproval';
+import verification from './Config/verify-email';
 import './styles/index.css'; 
 
 
@@ -42,6 +43,7 @@ function App() {
           <Route path='/Test' component={ Test } />
           <Route path='/Approval' component={ Approval } />
           <Route path='/pending' component={ Pending } />
+          <Route path='/verify' component={ verification } />
 
           <Route path='/Update/:id' component={ Update } />
           <Route component={ListedBlogs} />

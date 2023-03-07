@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import "../styles/Credentials.css";
 import supabase from "../supabase";
@@ -56,6 +57,7 @@ const LoginForm = () => {
         }
         //https://blog-server-zeta.vercel.app/
         // http://localhost:800/
+        //htts://blog-server-zeta.vercel.app
         // console.log("Login form submitted: ", formData);
         return res.json();
       })
@@ -90,7 +92,7 @@ const LoginForm = () => {
     <div className="signup-form">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <h2>Login</h2>
+          <h2>Login to your Account</h2>
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -123,7 +125,7 @@ const LoginForm = () => {
         <button type="submit">{isLoading ? "Loading..." : "Login"}</button>
       </form>
 
-      <h4 style={{ textAlign: "center", marginTop: "1px" }}>
+      {/* <h4 style={{ textAlign: "center", marginTop: "1px" }}>
         Don't have an account?{" "}
         {
           <a
@@ -132,6 +134,22 @@ const LoginForm = () => {
           >
             Sign up
           </a>
+        }
+        <div className="line-container">
+          <div className="line"></div>
+          <div className="or">or</div>
+          <div className="line"></div>
+        </div>
+      </h4> */}
+      <h4 style={{ textAlign: "center", marginTop: "1px" }}>
+        Want to become a Guest Blogger? {" "}
+        {
+          <Link
+            style={{ color: "blue", textDecoration: "underline" }}
+            to="/Blogger"
+          >
+            Sign up Here
+          </Link>
         }
         <div className="line-container">
           <div className="line"></div>
