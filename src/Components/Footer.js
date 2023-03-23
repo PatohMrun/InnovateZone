@@ -18,7 +18,7 @@ function Footer() {
   };
   const handleMessageSubmit = (event) => {
     event.preventDefault();
-    fetch("https://blog-server-zeta.vercel.app/messages", {
+    fetch("https://blog-server-zeta.vercel.app/mails", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(formMessages),

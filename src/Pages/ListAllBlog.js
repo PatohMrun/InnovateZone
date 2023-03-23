@@ -30,6 +30,16 @@ const ListedBlogs = () => {
   }, []);
 
   const { data, pending, Errors } = useFetch("https://blog-server-zeta.vercel.app/blogs");
+  // {data && console.log(data);}
+  const { data:views, pending:pedView, Errors:viewErr } = useFetch("https://blog-server-zeta.vercel.app/getViews");
+  // {views && console.log(views)}
+
+  const cumulativeViewed = views && views.reduce((acc, view) => {
+    return acc + parseInt(view.isViewed);
+  }, 0);
+  // console.log("Cumulative Viewed:", cumulativeViewed);
+
+  
   const {
     data: Admins,
     pending: ped1,
@@ -164,7 +174,7 @@ const ListedBlogs = () => {
                 <div className="statistics">
                   <div id="views">
                     <h4>Views</h4>
-                    <h2>2</h2>
+                    {cumulativeViewed ? (<h2>{cumulativeViewed}</h2>):(<h2>2</h2>)}
                   </div>
                   <br />
                   <div id="views">
@@ -181,6 +191,7 @@ const ListedBlogs = () => {
                   <br />
                   {GuestBloggers && userEmail==='jgathiru02@gmail.com' &&
                   <div id="views">
+                    
                     <h4>GuestBlogger</h4>
                     <h2>{GuestBloggers}</h2>
                   </div>

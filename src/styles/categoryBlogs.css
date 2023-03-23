@@ -166,7 +166,7 @@
 @media only screen and (max-width: 990px) {
   .message-Icon{
     top: 25%;
-    right: 10%;
+    right: 15%;
    
   }
   .PendingApproval{
@@ -187,6 +187,9 @@
     height: 20%;
     width: 115px;
   }
+  #views h4 {
+    font-size: 0.8rem;
+  }
   .EachHeader{
     display: block;
     margin: 10px;
@@ -197,8 +200,8 @@
   }
   .message-Icon{
     position: fixed;
-    top: 25%;
-    right: 8%;
+    top: 15%;
+    left: 8%;
     color: #ffb700;
     cursor: pointer;
   }

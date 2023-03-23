@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer")
 const saltRounds = 10;
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
@@ -22,23 +23,23 @@ const pusher = new Pusher({
   useTLS: true
 });
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: process.env.PD,
-  database: process.env.DB,
-});
+// const db = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: process.env.PD,
+//   database: process.env.DB,
+// });
 
-db.connect((err, req) => {
-  if (err) console.log(err);
-  else console.log("Database Connected");
-});
+// db.connect((err, req) => {
+//   if (err) console.log(err);
+//   else console.log("Database Connected");
+// });
 
-// const db = mysql.createConnection('mysql://ruhevgyur9isopdwey7h:pscale_pw_KRUtxiXzmIZuHN75FIeGf4dHSeIJ8ZWsm1tVdAHNNl5@us-east.connect.psdb.cloud/blog_db?ssl={"rejectUnauthorized":true}');
-// db.connect((err) => {
-  //   if (err) console.log(err);
-  //   else console.log("Connected to PlanetScale!");
-  // });
+const db = mysql.createConnection('mysql://ruhevgyur9isopdwey7h:pscale_pw_KRUtxiXzmIZuHN75FIeGf4dHSeIJ8ZWsm1tVdAHNNl5@us-east.connect.psdb.cloud/blog_db?ssl={"rejectUnauthorized":true}');
+db.connect((err) => {
+    if (err) console.log(err);
+    else console.log("Connected to PlanetScale!");
+  });
   
   // db.query("SELECT * FROM comments", (err, results) => {
   //   if (err) throw err;
@@ -55,17 +56,127 @@ db.connect((err, req) => {
   });
 });
 
+app.get("/",(req,res)=>{
+  res.send('Testing')
+})
+
+//sending mails using node mailer
+app.post("/mails",(req,res)=>{
+     Name = req.body.name;
+     Email = req.body.email;
+     Message = req.body.message;
+    console.log(Name, Email, Message);
+    // do something with the data, e.g. send to email
+
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.EMAIL,
+          pass: process.env.PASS,
+        },
+    });
+    try {
+        // Send the email using nodemailer
+        const emailRes = transporter.sendMail({
+          from: { name: Name , address: Email },
+          to: process.env.EMAIL,
+          replyTo: Email,
+          subject: "Message From Your website",
+          html: `
+          <p>${Message}</p>
+          <h4>Message From: ${Name}</h4>
+        `,
+        });
+        console.log("message sent");
+        res.send('Received the message and sent email!');
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Failed to send email');
+    }
+})
+
+
+
+
+
+
+
 app.get("/blogs/:id", (req, res) => {
   const { id } = req.params;
-  const data = "select *from articles where id=?";
+  const data = "select * from articles where id=?";
   db.query(data, id, (err, blogs) => {
     if (err) {
       console.log("no data");
     } else {
       res.send(blogs);
+
+      // Check if a row with the post_id already exists
+      const selectQuery = "SELECT * FROM views WHERE post_id = ?";
+      db.query(selectQuery, [id], (err, rows) => {
+        if (err) {
+          console.log("Error selecting from views table:", err);
+        } else {
+          // If a row with the post_id exists, update the isLiked column
+          if (rows.length > 0) {
+            const updateQuery =
+              "UPDATE views SET isViewed = isViewed +  ? WHERE post_id = ?";
+            db.query(updateQuery, [0.5, id], (err, resp) => {
+              if (err) {
+                console.log("Error updating views in database:", err);
+              } else {
+                console.log("views updated in database:");
+              }
+            });
+
+            // If no row with the post_id exists, insert a new row with the post_id and isViewed values
+          } else {
+            const insertQuery =
+              "INSERT INTO views (post_id, isViewed) VALUES (?, ?)";
+            db.query(insertQuery, [id, 0.5], (err, resp) => {
+              if (err) {
+                console.log("Error inserting views into database:", err);
+              } else {
+                console.log("views inserted into database:");
+              }
+            });
+          }
+        }
+      });
     }
   });
 });
+
+
+
+app.get("/getViews", (req, res) => {
+  // const { id } = req.params;
+  const ViewsQuery = "SELECT * FROM views";
+  db.query(ViewsQuery, (err, views) => {
+    if (err) {
+      console.log("Error retrieving views from database:", err);
+      return res
+        .status(500)
+        .json({ error: "Error retrieving likes from the database" });
+    }
+    res.send(views);
+  });
+});
+// app.get("/getViews/:id", (req, res) => {
+//   const { id } = req.params;
+//   const ViewsQuery = "SELECT * FROM views WHERE post_id = ?";
+//   db.query(ViewsQuery, [id], (err, views) => {
+//     if (err) {
+//       console.log("Error retrieving views from database:", err);
+//       return res
+//         .status(500)
+//         .json({ error: "Error retrieving likes from the database" });
+//     }
+//     res.send(views);
+//     return res.status(200).json({ likes });
+//   });
+// });
+
+
 
 app.get("/blogs/types/:BlogType", (req, res) => {
   const { BlogType } = req.params;
@@ -131,8 +242,8 @@ app.post("/blogUpdate", (req, res) => {
 });
 
 
-//inserting message in the database
-app.post("/messages", (req, res) => {
+// //inserting message in the database
+app.post("/mails", (req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const messages = req.body.message;
@@ -301,6 +412,8 @@ app.post("/like", (req, res) => {
   });
 });
 
+
+
 app.get("/getlikes/:id", (req, res) => {
   const { id } = req.params;
   const likesQuery = "SELECT * FROM likes WHERE post_id = ?";
@@ -311,7 +424,7 @@ app.get("/getlikes/:id", (req, res) => {
         .status(500)
         .json({ error: "Error retrieving likes from the database" });
     }
-    console.log("Likes retrieved from database:" + likes);
+    // console.log("Likes retrieved from database:" + likes);
     res.send(likes);
     // return res.status(200).json({ likes });
   });
@@ -338,7 +451,7 @@ app.post("/comments", (req, res) => {
           .status(500)
           .json({ error: "Error inserting comment into the database" });
       }
-      pusher.trigger("innovate-Zone", "new-comment", { id: result.insertId, content, post_id: req.params.id });
+      // pusher.trigger("innovate-Zone", "new-comment", { id: result.insertId, content, post_id: req.params.id });
       console.log("Comment inserted into database:", result.insertId);
       return res.status(200).json({ message: "Comment added successfully" });
     }
