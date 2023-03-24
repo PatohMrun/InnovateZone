@@ -61,7 +61,7 @@ const Approval = () => {
   //     .catch((error) => {
   //       console.log(error.message);
   //     });
-  // };
+  };
 
   if (!isLoaded) {
     return <div>Loading...</div>;
