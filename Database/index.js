@@ -62,39 +62,38 @@ app.get("/",(req,res)=>{
 
 //sending mails using node mailer
 
-app.post("/mails",(req,res)=>{
-    const Name = req.body.name;
-    const Email = req.body.email;
-    const Message = req.body.message;
-    console.log(Name, Email, Message);
-    // do something with the data, e.g. send to email
-
-    let transporter = nodemailer.createTransport({
-        service: "gmail",
-        auth: {
-          user: process.env.EMAIL,
-          pass: process.env.PASS,
-        },
-    });
-    try {
-        // Send the email using nodemailer
-        const emailRes = transporter.sendMail({
-          from: { name: Name , address: Email },
-          to: process.env.EMAIL,
-          replyTo: Email,
-          subject: "Message From Your website",
-          html: `
-          <p>${Message}</p>
-          <h4>Message From: ${Name}</h4>
-        `,
-        });
-        console.log("message sent");
-        res.send('Received the message and sent email!');
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Failed to send email');
-    }
-})
+// app.post("/mails",(req,res)=>{
+//     const Name = req.body.name;
+//     const Email = req.body.email;
+//     const Message = req.body.message;
+//     console.log(Name, Email, Message);
+//     // do something with the data, e.g. send to email
+//     let transporter = nodemailer.createTransport({
+//         service: "gmail",
+//         auth: {
+//           user: process.env.EMAIL,
+//           pass: process.env.PASS,
+//         },
+//     });
+//     try {
+//         // Send the email using nodemailer
+//         const emailRes = transporter.sendMail({
+//           from: { name: Name , address: Email },
+//           to: process.env.EMAIL,
+//           replyTo: Email,
+//           subject: "Message From Your website",
+//           html: `
+//           <p>${Message}</p>
+//           <h4>Message From: ${Name}</h4>
+//         `,
+//         });
+//         console.log("message sent");
+//         res.send('Received the message and sent email!');
+//     } catch (error) {
+//         console.log(error);
+//         res.status(500).send('Failed to send email');
+//     }
+// })
 
 
 

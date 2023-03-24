@@ -41,8 +41,21 @@ function Footer() {
       else{
         console.log("Not successfull");
       }
-      // console.log("submited");
     });
+
+  fetch("https://blog-server-zeta.vercel.app/mails", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(formMessages),
+  }).then((res) => {
+    if (res.ok) {
+      console.log('submited successfully to second API');
+    }
+    else{
+      console.log("Not successfull for second API");
+    }
+  });
+
   };
   return (
     <footer>
