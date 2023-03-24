@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "../styles/Footer.css";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 import { RiWhatsappFill } from "react-icons/ri";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Footer() {
   const [messageReceived, setMessageReceived]=useState(false);
@@ -31,6 +33,10 @@ function Footer() {
           email: "",
           message: "",
         });
+        toast.success("Message Sent Successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 1000,
+        });
       }
       else{
         console.log("Not successfull");
@@ -46,7 +52,7 @@ function Footer() {
         <p>
           Email:{" "}
           <a href="https://mail.google.com/mail/?view=cm&to=youngprofessor991@gmail.com">
-            contact@myblog.com
+            info@myblog.com
           </a>
         </p>
         <p>Phone: +254-729-144-533</p>
@@ -91,7 +97,8 @@ function Footer() {
             </div>
           </div>
           <button type="submit">Send</button>
-          {messageReceived && <div><br /><h4 style={{color:'green', textAlign:'center'}}>Message received Successfully!</h4></div> }
+          {/* {messageReceived && <div><br /><h4 style={{color:'green', textAlign:'center'}}>Message received Successfully!</h4></div> } */}
+          <ToastContainer />
         </form>
       </div>
       <div className="footer-social">
