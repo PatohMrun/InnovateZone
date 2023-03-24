@@ -31,21 +31,6 @@ const Approval = () => {
   const handleApprove = (e, email) => {
     e.preventDefault();
     setApprovals({ ...approvals, [email]: true });
-    fetch("https://blog-server-zeta.vercel.app/Approved", {
-      method: "post",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ email }),
-    })
-      .then((res) => {
-        if (res.ok) {
-          console.log(res.message);
-        } else {
-          throw error;
-        }
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
     fetch("https://blog-server-zeta.vercel.app/sendmail", {
       method: "post",
       headers: { "content-type": "application/json" },
@@ -61,7 +46,22 @@ const Approval = () => {
       .catch((error) => {
         console.log(error.message);
       });
-  };
+  //   fetch("https://blog-server-zeta.vercel.app/sendmail", {
+  //     method: "post",
+  //     headers: { "content-type": "application/json" },
+  //     body: JSON.stringify({ email }),
+  //   })
+  //     .then((res) => {
+  //       if (res.ok) {
+  //         console.log(res.message);
+  //       } else {
+  //         throw error;
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // };
 
   if (!isLoaded) {
     return <div>Loading...</div>;
