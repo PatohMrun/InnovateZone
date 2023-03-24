@@ -120,7 +120,7 @@ app.get("/blogs/:id", (req, res) => {
           if (rows.length > 0) {
             const updateQuery =
               "UPDATE views SET isViewed = isViewed +  ? WHERE post_id = ?";
-            db.query(updateQuery, [0.5, id], (err, resp) => {
+            db.query(updateQuery, [1, id], (err, resp) => {
               if (err) {
                 console.log("Error updating views in database:", err);
               } else {
@@ -132,7 +132,7 @@ app.get("/blogs/:id", (req, res) => {
           } else {
             const insertQuery =
               "INSERT INTO views (post_id, isViewed) VALUES (?, ?)";
-            db.query(insertQuery, [id, 0.5], (err, resp) => {
+            db.query(insertQuery, [id, 1], (err, resp) => {
               if (err) {
                 console.log("Error inserting views into database:", err);
               } else {
