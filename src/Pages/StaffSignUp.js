@@ -48,6 +48,7 @@ const StaffSignUp = () => {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('data');
     setIsLoading(true);
     setIsLoading(true);
     const salt = bcrypt.genSaltSync(10);
@@ -62,16 +63,16 @@ const StaffSignUp = () => {
       description: formData.description,
       password: hashedPassword
     };
-    const { data:DataSupa, error } = await supabase.auth.signUp(data);
-    if (error) {
-      console.error('Sign-up error:', error);
-      setIsLoading(false);
-      return;
-    } else {
-      console.log('Sign-up successful');
-      const user = DataSupa.user;
-      console.log('User:', user);
-    }
+    // const { data:DataSupa, error } = await supabase.auth.signUp(data);
+    // if (error) {
+    //   console.error('Sign-up error:', error);
+    //   setIsLoading(false);
+    //   return;
+    // } else {
+    //   console.log('Sign-up successful');
+    //   const user = DataSupa.user;
+    //   console.log('User:', user);
+    // }
 //  if (!/[A-Z]/.test(formData.password) || !/[a-z]/.test(formData.password) || !/\d/.test(formData.password)) {
 //         setPasswordError(true);
 //         return;
