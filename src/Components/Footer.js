@@ -18,18 +18,24 @@ function Footer() {
   };
   const handleMessageSubmit = (event) => {
     event.preventDefault();
-    fetch("https://blog-server-zeta.vercel.app/mails", {
+    fetch("https://nodemailer-server-rouge.vercel.app/mails", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(formMessages),
-    }).then(() => {
-      setMessageReceived(true);
-      setFormMessages({
-        name: "",
-        email: "",
-        message: "",
-      });
-      console.log("submited");
+    }).then((res) => {
+      if (res.ok) {
+        console.log('submited successfully');
+        setMessageReceived(true);
+        setFormMessages({
+          name: "",
+          email: "",
+          message: "",
+        });
+      }
+      else{
+        console.log("Not successfull");
+      }
+      // console.log("submited");
     });
   };
   return (

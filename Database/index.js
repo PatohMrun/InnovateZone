@@ -61,10 +61,11 @@ app.get("/",(req,res)=>{
 })
 
 //sending mails using node mailer
+
 app.post("/mails",(req,res)=>{
-     Name = req.body.name;
-     Email = req.body.email;
-     Message = req.body.message;
+    const Name = req.body.name;
+    const Email = req.body.email;
+    const Message = req.body.message;
     console.log(Name, Email, Message);
     // do something with the data, e.g. send to email
 
