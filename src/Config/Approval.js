@@ -31,7 +31,7 @@ const Approval = () => {
   const handleApprove = (e, email) => {
     e.preventDefault();
     setApprovals({ ...approvals, [email]: true });
-    fetch("https://blog-server-zeta.vercel.app/sendmail", {
+    fetch("https://blog-server-zeta.vercel.app/email", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ email }),
