@@ -174,7 +174,7 @@ const ListedBlogs = () => {
                 <div className="statistics">
                   <div id="views">
                     <h4>Views</h4>
-                    {cumulativeViewed ? (<h2>{cumulativeViewed}</h2>):(<h2>2</h2>)}
+                    {cumulativeViewed ? (<h2>{cumulativeViewed}</h2>):(<h2>1</h2>)}
                   </div>
                   <br />
                   <div id="views">
