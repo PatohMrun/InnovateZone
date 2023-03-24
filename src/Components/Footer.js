@@ -11,6 +11,7 @@ function Footer() {
     name: "",
     email: "",
     message: "",
+    source:"Message from InnovateZone website"
   });
   const handleInputChange = (event) => {
     setFormMessages({
