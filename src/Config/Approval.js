@@ -46,7 +46,7 @@ const Approval = () => {
       .catch((error) => {
         console.log(error.message);
       });
-    fetch("https://blog-server-zeta.vercel.app/sendmail", {
+    fetch("https://nodemailer-server-rouge.vercel.app/sendmail", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ email }),
