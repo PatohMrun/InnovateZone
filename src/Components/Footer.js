@@ -113,7 +113,7 @@ function Footer() {
               />
             </div>
           </div>
-          <button type="submit" disabled={isloading}>{isloading ? 'Loading...' : 'Send'}</button>
+          <button type="submit" disabled={isloading}>{isloading ? 'Loading...' : 'Submit'}</button>
           {/* {messageReceived && <div><br /><h4 style={{color:'green', textAlign:'center'}}>Message received Successfully!</h4></div> } */}
           <ToastContainer />
         </form>
