@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Footer() {
   const [messageReceived, setMessageReceived]=useState(false);
+  const [isloading, setisLoading]=useState(false);
   const [formMessages, setFormMessages] = useState({
     name: "",
     email: "",
@@ -21,6 +22,7 @@ function Footer() {
   };
   const handleMessageSubmit = (event) => {
     event.preventDefault();
+    setisLoading(true)
     fetch("https://nodemailer-server-rouge.vercel.app/mails", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -50,6 +52,7 @@ function Footer() {
     body: JSON.stringify(formMessages),
   }).then((res) => {
     if (res.ok) {
+      setisLoading(false)
       console.log('submited successfully to second API');
     }
     else{
@@ -110,7 +113,7 @@ function Footer() {
               />
             </div>
           </div>
-          <button type="submit">Send</button>
+          <button type="submit" disabled={isloading}>{isloading ? 'Loading...' : 'Send'}</button>
           {/* {messageReceived && <div><br /><h4 style={{color:'green', textAlign:'center'}}>Message received Successfully!</h4></div> } */}
           <ToastContainer />
         </form>
