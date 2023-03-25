@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Cookies from "js-cookie";
 import jwtDecode from "jwt-decode";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Approval = () => {
   const [userRole, setUserRole] = useState(null);
@@ -53,7 +55,10 @@ const Approval = () => {
     })
       .then((res) => {
         if (res.ok) {
-          console.log(res.message);
+          toast.success("Approved Successfully!", {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000,
+          });
         } else {
           throw error;
         }
@@ -94,6 +99,7 @@ const Approval = () => {
               >
                 {approvals[userdata.email] ? "Approved" : "Approve"}
               </button>
+              <ToastContainer />
               <button>Reject</button>
             </div>
           </div>
