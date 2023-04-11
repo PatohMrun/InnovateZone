@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useFetch from "../Components/Fetch";
 import "../styles/Messages.css"
 
 function Messages() {
   const {data:sms, error, pending}=useFetch('https://blog-server-zeta.vercel.app/sms')
+  const [mess, setMess] = useState([]);
+  
 
+  useEffect(() => {
+    if (sms) {
+      setMess(sms);
+    }
+  }, [sms]);
   if (pending) {
     return <p>Loading...</p>;
   }
@@ -35,15 +42,31 @@ function Messages() {
   
   console.log(sms[0].sent_at);
 
+  const handleDelete=(messageID)=>{
+    console.log("tiga wagna");
+    fetch("https://blog-server-zeta.vercel.app/DeleteMessage",{
+      method:"POST",
+      headers:{"content-type":"application/json"},
+      body:JSON.stringify({messageID})
+    }).then((res)=>{
+      if (res.ok) {
+        console.log("message deleted successfully");
+        setMess((prevSms) => prevSms.filter((message) => message.messageID !== messageID));
+      }
+    })
+
+  }
+  console.log(sms);
   return (
     <div className="messages-container">
       <h1 className="messages-title">Messages</h1>
       <ul className="messages-list">
-        {sms.map((message, index) => (
+        {mess.map((message, index) => (
           <li key={index} className={`message ${message.name === 'John' ? 'message-from-me' : 'message-from-them'}`}>
             <div className="message-sender">{message.name}</div>
             <div className="message-timestamp">{formatTimestamp(message.sent_at)}</div>
             <div className="message-text">{message.messages}</div>
+            <button onClick={() => handleDelete(message.messageID)}>Delete</button>
           </li>
         ))}
       </ul>

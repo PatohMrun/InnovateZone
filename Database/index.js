@@ -12,10 +12,8 @@ const Pusher = require("pusher");
 
 const secretKey = process.env.SALT; // replacee this with your own secret key
 const app = express();
-const corsOptions = {
-  origin: 'https://innovate-zone.vercel.app/',
-};
-app.use(cors(corsOptions));
+
+app.use(cors());
 app.use(bodyParser.json());
 
 const pusher = new Pusher({
@@ -55,10 +53,10 @@ db.connect((err) => {
     else console.log("Connected to PlanetScale!");
   });
   
-  // db.query("SELECT * FROM comments", (err, results) => {
-  //   if (err) throw err;
-  //   pusher.trigger("innovate-Zone", "inserted", results);
-  // });
+  db.query("SELECT * FROM comments", (err, results) => {
+    if (err) throw err;
+    pusher.trigger("innovate-Zone", "inserted", results);
+  });
 
 
 //selecting secured Routes
@@ -295,6 +293,20 @@ app.get("/sms", (err, res) => {
     }
   });
 });
+app.post('/DeleteMessage', (req,res)=>{
+  const messageid=req.body.messageID;
+  console.log(messageid);
+  const removeMessage="Delete from messages where MessageID = ?";
+  db.query(removeMessage,[messageid],(err, result)=>{
+    if (err){
+      console.log(err);
+    }
+    else{
+      console.log('Message Deleted successfully');
+      res.send('Message Deleted successfully')
+    }
+  })
+})
 
 app.get("/GuestBloggers",(req, res)=>{
   const apiKey = req.query.api_key;
@@ -314,7 +326,6 @@ app.get("/GuestBloggers",(req, res)=>{
 
   app.post("/removeAdmin",(req,res)=>{
     const email=req.body.email
-    console.log("the email is "+email);
     const remove="Delete from Admins where email = ?";
     db.query(remove,[email],(err, result)=>{
       if (err){

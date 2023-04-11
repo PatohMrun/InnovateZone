@@ -121,15 +121,15 @@ const ListedBlogs = () => {
     };
   };
 
-  const modalStyles = {
-    content: {
-      width: '900px',
-      height: '600px',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)'
-    }
-  };
+  // const modalStyles = {
+  //   content: {
+      // width: '900px',
+      // height: '600px',
+  //     top: '50%',
+  //     left: '50%',
+  //     transform: 'translate(-50%, -50%)'
+  //   }
+  // };
   
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -155,7 +155,7 @@ const ListedBlogs = () => {
         
       )}
       {/* //open a pop up to show the guestBloggers  */}
-      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} style={modalStyles}><Bloggers /></Modal>
+      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} className="modal"><Bloggers /></Modal>
       {userRole === "admin" ? (
         <div id="UpdateBlog">
           <a id="AddBlog" href="/Add blogs">
@@ -259,9 +259,7 @@ const ListedBlogs = () => {
             </div>
           </div>
         ) : (
-          <div className="GuestBlogger">
-            <h2 style={{margin:"auto", color:"white"}}>Coming Soon</h2>
-          </div>
+          <div></div>
         )}
         <br />
       </div>

@@ -183,6 +183,22 @@
   background-color: #fff;
 } */
 
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  width: 60%;
+  height: 600px;
+  overflow: scroll;
+}
+/* .modal__content {
+  width: 900px;
+  height: auto;
+} */
 
 @media only screen and (max-width: 990px) {
   .message-Icon{
@@ -197,6 +213,10 @@
 @media only screen and (max-width: 768px) {
   .EachRequest{
     max-width: 70%;
+  }
+  .modal {
+    width: 70%;
+    height: 600px;
   }
 }
 @media only screen and (max-width: 600px) {
@@ -251,5 +271,9 @@
   .welcoming-admin {
     margin-top: 15%;
     margin-left: 0%;
+  }
+  .modal {
+    width: 90%;
+    height: 600px;
   }
 }
