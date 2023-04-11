@@ -53,10 +53,10 @@ db.connect((err) => {
     else console.log("Connected to PlanetScale!");
   });
   
-  db.query("SELECT * FROM comments", (err, results) => {
-    if (err) throw err;
-    pusher.trigger("innovate-Zone", "inserted", results);
-  });
+  // db.query("SELECT * FROM comments", (err, results) => {
+  //   if (err) throw err;
+  //   pusher.trigger("innovate-Zone", "inserted", results);
+  // });
 
 
 //selecting secured Routes
