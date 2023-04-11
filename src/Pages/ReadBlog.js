@@ -12,7 +12,7 @@ import "../styles/ReadBog.css";
 const ReadBlogs = () => {
   const { id } = useParams();
   const { data, pending, Error } = useFetch(
-    "https://blog-server-zeta.vercel.app/blogs/" + id
+    "https://blog-server-zeta.vercel.app/blogs/" + id +"?api_key=UD9VZKyRU5eIZzPq"
   );
   // const [CommmentSubmitted, setCommentSubmitted] = useState(false);
   const history = useHistory();
@@ -66,13 +66,17 @@ const ReadBlogs = () => {
           <span dangerouslySetInnerHTML={{ __html: data[0]["Author"] }} />
         </p>
       )}
-      {data && userRole === "admin" && <AiFillDelete size={30} onClick={Delete}/>}
+      {data && userRole === "admin" && <AiFillDelete size={30} onClick={()=>{
+        if (window.confirm("Are you sure you want to delete this post?")) {
+      Delete();
+    }
+      }}/>}
       {data && userRole === "admin" &&  <Link to={'/Update/'+ id}><AiFillEdit size={30}/></Link>}
       {pending && <div>Loading...</div>}
       {Error && <div>An error occured...</div>}
 
-   {!pending && !Error && <CommentMessages />}
-     {!pending && !Error && <Replies />}
+    {!pending && !Error && <CommentMessages />}
+    {!pending && !Error && <Replies />}
       <br />
     </div>
   );

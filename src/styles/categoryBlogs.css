@@ -39,8 +39,21 @@
   color: #ffb700;
   cursor: pointer;
 }
+.NoOfMessages{
+  background-color: #000;
+  width: 20px;
+  margin-top: -70px;
+  margin-left: 15px;
+  border-radius: 50%;
+}
+.NoOfMessages p{
+  text-align: center;
+}
 .Message_Approval h5{
   color: #000;
+}
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .EachBlog {
   display: flex;
@@ -163,11 +176,18 @@
 #list-all-blogs{
   padding: 20px;
 }
+/* .GuestBloggers{
+  z-index: 10;
+  height: 400px;
+  width: 400px;
+  background-color: #fff;
+} */
+
+
 @media only screen and (max-width: 990px) {
   .message-Icon{
     top: 25%;
     right: 15%;
-   
   }
   .PendingApproval{
     top: 25%;
@@ -212,6 +232,7 @@
     color: #ffb700;
     cursor: pointer;
   }
+ 
   .GuestBlogger {
     display: block;
   }

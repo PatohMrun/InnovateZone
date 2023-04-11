@@ -29,7 +29,8 @@ const Approval = () => {
   }, []);
 
   const { data, pending, error } = useFetch("https://blog-server-zeta.vercel.app/Approval");
-
+  console.log(data);
+    
   const handleApprove = (e, email) => {
     e.preventDefault();
     setApprovals({ ...approvals, [email]: true });
@@ -68,6 +69,21 @@ const Approval = () => {
       });
   };
 
+  const handleReject=(e, email)=>{
+    fetch("https://blog-server-zeta.vercel.app/rejected",{
+      method:"post",
+      headers:{'content-type':'application/json'},
+      body:JSON.stringify({ email })
+  }).then((res)=>{
+    if(res.ok){
+      toast.success("Rejection Successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
+    }
+  })
+  }
+
   if (!isLoaded) {
     return <div>Loading...</div>;
   }
@@ -100,7 +116,7 @@ const Approval = () => {
                 {approvals[userdata.email] ? "Approved" : "Approve"}
               </button>
               <ToastContainer />
-              <button>Reject</button>
+              <button onClick={(e)=> handleReject(e, userdata.email)}>Reject</button>
             </div>
           </div>
         ))}

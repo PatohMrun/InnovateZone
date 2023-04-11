@@ -10,6 +10,8 @@ import jwtDecode from "jwt-decode";
 import Cookies from "js-cookie";
 import Messages from "./Messages";
 import Approval from "../Config/Approval";
+import Bloggers from "../Components/bloggers";
+import Modal from 'react-modal';
 
 // To know the role of user and grant them permission to add blog
 const ListedBlogs = () => {
@@ -29,7 +31,7 @@ const ListedBlogs = () => {
     setUserRole(role);
   }, []);
 
-  const { data, pending, Errors } = useFetch("https://blog-server-zeta.vercel.app/blogs");
+  const { data, pending, Errors } = useFetch(`https://blog-server-zeta.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq`);
   // {data && console.log(data);}
   const { data:views, pending:pedView, Errors:viewErr } = useFetch("https://blog-server-zeta.vercel.app/getViews");
   // {views && console.log(views)}
@@ -37,17 +39,16 @@ const ListedBlogs = () => {
   const cumulativeViewed = views && views.reduce((acc, view) => {
     return acc + parseInt(view.isViewed);
   }, 0);
-  // console.log("Cumulative Viewed:", cumulativeViewed);
 
   
   const {
     data: Admins,
     pending: ped1,
     Errors: err1,
-  } = useFetch("https://blog-server-zeta.vercel.app/GuestBloggers");
+  } = useFetch("https://blog-server-zeta.vercel.app/GuestBloggers?api_key=UD9VZKyRU5eIZzPq");
   let GuestBloggers=null;
   if (Admins) {
-    GuestBloggers=Admins[0].Bloggers
+    GuestBloggers=Admins.length
   }
   let filteredData = null;
   let blogCountsByUser = {};
@@ -119,8 +120,21 @@ const ListedBlogs = () => {
       );
     };
   };
-  
 
+  const modalStyles = {
+    content: {
+      width: '900px',
+      height: '600px',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)'
+    }
+  };
+  
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  //look for the whether there is pending apprvas
+  const { data:Approvals, pending:peed, error } = useFetch("https://blog-server-zeta.vercel.app/Approval");
 
   return (
     <div>
@@ -133,10 +147,15 @@ const ListedBlogs = () => {
         <div className="PendingApproval" onClick={handleClickApproval} >
           <FcApprove size={26}/>
           <h5>Pending <br /> Approvals</h5>
+          {Approvals && <div className="NoOfMessages">
+              <p>{Approvals.length}</p>
+          </div>}
         </div>
        </div>
         
       )}
+      {/* //open a pop up to show the guestBloggers  */}
+      <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} style={modalStyles}><Bloggers /></Modal>
       {userRole === "admin" ? (
         <div id="UpdateBlog">
           <a id="AddBlog" href="/Add blogs">
@@ -190,8 +209,7 @@ const ListedBlogs = () => {
                   </div>
                   <br />
                   {GuestBloggers && userEmail==='jgathiru02@gmail.com' &&
-                  <div id="views">
-                    
+                  <div id="views" onClick={()=>{setModalIsOpen(true)}} style={{cursor:"pointer"}}>
                     <h4>GuestBlogger</h4>
                     <h2>{GuestBloggers}</h2>
                   </div>
@@ -247,6 +265,7 @@ const ListedBlogs = () => {
         )}
         <br />
       </div>
+
     </div>
   );
 };
