@@ -21,9 +21,7 @@ const CategoryBlogs = ({ category, title }) => {
     setUserRole(role);
   }, []);
 
-  const { data, pending, Errors } = useFetch("https://blog-server-zeta.vercel.app/Blogs")
-console.log(data);
-console.log(userEmail);
+  const { data, pending, Errors } = useFetch("https://blog-server-zeta.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq")
   let filteredData = null;
   let blogCountsByUser = {};
   let AllBlog = null;
@@ -65,11 +63,25 @@ console.log(userEmail);
       )}
 
       <div className="GuestBlogger">
-        {Errors && <div className="SpecificBlog">The server is unavailable currently ☹. Try again later</div>}
-        {pending && <div className="SpecificBlog"> <h3>loading...</h3></div>}
-
-        {data && <Blogs data={filteredData} title={title} />}
-        {/* {data && <Blogs data={data.filter((data) => data.BlogType === category )} title={title} />} */}
+        {Errors ? (
+          <div className="SpecificBlog">
+            <h3 style={{ color: "#444444" }}>The server is currently unavailable ☹. Try again later!</h3>
+          </div>
+        ) : pending ? (
+          <div className="SpecificBlog">
+            <h2 style={{ color: "#444444" }}>Loading...</h2>
+          </div>
+          ) : filteredData !== null && filteredData.length > 0 ? (
+              <Blogs data={filteredData} title={title} />
+          ):(
+          //show no items found
+          <div className="SpecificBlog">
+            <h3 style={{ color: "#444444" }}>No items found</h3>
+          </div>
+          )}
+        {/* {Errors && <div className="SpecificBlog"> <h3 style={{color: "#444444"}}>The server is currently unavailable ☹. Try again later!</h3> </div>}
+        {pending && <div className="SpecificBlog"> <h2 style={{color: "#444444"}}>Loading...</h2></div>}
+        {data && <Blogs data={filteredData} title={title} />} */}
       </div>
     </div>
   );

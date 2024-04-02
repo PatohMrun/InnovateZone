@@ -180,7 +180,7 @@ const ListedBlogs = () => {
         {pending && (
           <div className="SpecificBlog">
             {" "}
-            <h3>loading...</h3>
+            <h2>Loading...</h2>
           </div>
         )}
 

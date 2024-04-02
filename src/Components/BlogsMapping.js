@@ -21,7 +21,7 @@ const Content = ({ data, title }) => {
   };
   return (
     <div className="blogs">
-      <h1>{title}</h1>
+      <h2>{title}</h2>
       {data.map(sortedData => (
         <div className="Blogs" key={sortedData.id}>
           <div className="EachBlog">
@@ -29,9 +29,9 @@ const Content = ({ data, title }) => {
               <h3>
                 {sortedData.Title}
               </h3>
-              <p style={{color:"blue", marginTop:"8px"}}>{formatTimestamp(sortedData.Date_created)}</p>
+              <p style={{color:"blue", marginTop:"8px", fontSize: "medium"}}>{formatTimestamp(sortedData.Date_created)}</p>
               <div id="ContentDisplay" dangerouslySetInnerHTML={{ __html: sortedData.Content }} />
-              <p style={{ color: "blue", float: "right" }}>
+              <p style={{ color: "blue", float: "right", fontSize: "medium" }}>
                 Written by: {sortedData.Author}
               </p>
             </Link>

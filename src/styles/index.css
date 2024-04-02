@@ -7,14 +7,15 @@
   }
 
   body {
-    background: radial-gradient(circle, rgb(138, 236, 146) 0%, rgb(133, 184, 243) 100%);
+    /* background: radial-gradient(circle, rgb(138, 236, 146) 0%, rgb(133, 184, 243) 100%); */
+    background-color: hsl(212, 81%, 89%);
     position: relative;
     /* font-family: 'Poppins', sans-serif; */
     font-family: 'Source Sans Pro', sans-serif;
   }
  
   a {
-    color: rgb(0, 0, 0);
+    color: #333333;
     list-style: none;
     text-decoration: none;
   }
@@ -23,7 +24,7 @@
   }
 
   a:hover {
-    color: brown;
+    /* color: brown; */
     /* text-decoration:   underline; */
   }
 
