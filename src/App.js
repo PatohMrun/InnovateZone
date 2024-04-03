@@ -9,10 +9,10 @@ import SignUpForm from './Pages/Sign up';
 import LoginForm from './Pages/Login';
 import RichTextEditor from './Pages/Test';
 import StaffSignUp from './Pages/StaffSignUp'
-import CommentMessagess from './Components/T';
+// import CommentMessagess from './Components/T';
 import Footer from './Components/Footer';
 import Messages from './Pages/Messages';
-import Test from './Pages/Test1234';
+// import Test from './Pages/Test1234';
 import Update from './Pages/Update';
 import Approval from './Config/Approval';
 import Pending from './Config/PendingApproval';
@@ -30,18 +30,18 @@ function App() {
 
      <Switch>
           <Route  exact path='/Home' component={ ListedBlogs } />
-          <Route  exact path='/W' component={ CommentMessagess } />
+          {/* <Route  exact path='/W' component={ CommentMessagess } /> */}
           <Route path='/Add blogs' component={ AddBlog } />
           <Route path='/Business ideas' component={ BusinessIdeas } />
           <Route path='/Technologies' component={ Technologies } />
           <Route path='/Enterpreneur skills' component={ Entrepreneur } />
           <Route path='/Blogs/:id' component={ ReadBlogs } />
-          <Route path='/sign up' component={ SignUpForm } />
+          {/* <Route path='/sign up' component={ SignUpForm } /> */}
           <Route path='/login' component={ LoginForm } />
-          <Route path='/text' component={ RichTextEditor } />
+          {/* <Route path='/text' component={ RichTextEditor } /> */}
           <Route path='/Blogger' component={ StaffSignUp } />
           <Route path='/messages' component={ Messages } />
-          <Route path='/Test' component={ Test } />
+          {/* <Route path='/Test' component={ Test } /> */}
           <Route path='/Approval' component={ Approval } />
           <Route path='/pending' component={ Pending } />
           <Route path='/bloggers' component={ Bloggers } />

@@ -21,8 +21,10 @@
     align-items: center;
     padding: 1rem;
     background-color: #1e83f7;
-    color: #fff;
+    /* background-color: hsl(212, 81%, 63%); */
+      color: #fff;
     font-size: 0.9rem;
+    
   }
   
   .footer-info {

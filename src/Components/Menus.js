@@ -30,10 +30,10 @@ const showHideMenu = () => {
 
 const MenuRoutes = [
   { href: "/Home", title: "Home" },
-  { href: "/Enterpreneur skills", title: "Entepreneur Skills" },
+  { href: "/Enterpreneur skills", title: "Entepreneurship" },
   { href: "/Business ideas", title: "Business Ideas" },
   { href: "/Technologies", title: "Technologies" },
-  { href: "/login", title: "Sign up/login" },
+  { href: "/login", title: "Login" },
 ];
 
 const Menu = () => {
@@ -109,11 +109,11 @@ const Menu = () => {
         />
         <ul>
           {MenuRoutes.map(({ href, title }, index) =>
-            title === "Sign up/login" ? (
+            title === "Login" ? (
               !isLoggedin ? (
                 <NavLink
                   style={{
-                    backgroundColor: "rgb(26, 168, 37)",
+                    backgroundColor: "hsl(212, 81%, 33%)",
                     borderRadius: "10px",
                   }}
                   key={index}
@@ -123,20 +123,20 @@ const Menu = () => {
                   {title}
                 </NavLink>
               ) : (
-                <div key={index}>
-                  <h4 style={{ color: "gold" }}>
-                    Welcome {userName.split(" ").slice(0, 1)}
-                  </h4>
+                <div key={index} style={{}}>
                   <button
-                    style={{ backgroundColor: "green" }}
+                    style={{ backgroundColor: "hsl(212, 81%, 43%)", }}
                     onClick={handleLogout}
                   >
                     Logout
                   </button>
+                  <h5 style={{ color: "gold", whiteSpace: "nowrap"  }}>
+                    Welcome {userName.split(" ").slice(0, 1)}
+                  </h5>
                 </div>
               )
             ) : (
-              <NavLink key={index} onClick={showHideMenu} to={href}>
+              <NavLink key={index} onClick={showHideMenu} to={href} style={{ whiteSpace: "nowrap" }}>
                 {title}
               </NavLink>
             )

@@ -12,13 +12,14 @@
 }
 
 .myBlogs h2 {
+  font-size: 1.3rem;
   text-align: center;
-  color: blue;
-  text-decoration: underline;
+  color: #333333;
+  font-weight: bold;
 }
 
 .myBlogs p {
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 .CommentForm {
   width: 100%;

@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import "../styles/Credentials.css";
 import supabase from "../supabase";
 import Cookies from "js-cookie";
+import toast, { Toaster } from 'react-hot-toast';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -69,6 +70,10 @@ const LoginForm = () => {
         history.push("/pending");
           return
         }
+        toast.success('Login Successful',{
+          duration:3000,
+          position:'top-center'
+        })
         const token = data.token;
         var expire = new Date();
         expire.setTime(expire.getTime() + 24 * 60 * 1000);
@@ -78,11 +83,15 @@ const LoginForm = () => {
         setIsLoading(false);
       })
       .catch((err) => {
-        setinvalidLogin(true);
-        setFormData({
-          email: "",
-          password: "",
-        });
+        // setinvalidLogin(true);
+        // setFormData({
+        //   email: "",
+        //   password: "",
+        // });
+        toast.error('Invalid Credentials',{
+          duration:3000,
+          position:'top-center'
+        })
         console.error(err.message);
       });
     setIsLoading(false)
@@ -172,6 +181,7 @@ const LoginForm = () => {
           <p>Invalid login cridentials!. Try again</p>
         </div>
       )}
+    <Toaster />
     </div>
   );
 };

@@ -12,6 +12,7 @@ import Messages from "./Messages";
 import Approval from "../Config/Approval";
 import Bloggers from "../Components/bloggers";
 import Modal from 'react-modal';
+import { Link, NavLink } from "react-router-dom";
 
 // To know the role of user and grant them permission to add blog
 const ListedBlogs = () => {
@@ -121,16 +122,6 @@ const ListedBlogs = () => {
     };
   };
 
-  // const modalStyles = {
-  //   content: {
-      // width: '900px',
-      // height: '600px',
-  //     top: '50%',
-  //     left: '50%',
-  //     transform: 'translate(-50%, -50%)'
-  //   }
-  // };
-  
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //look for the whether there is pending apprvas
@@ -140,12 +131,12 @@ const ListedBlogs = () => {
     <div>
       {userEmail === "jgathiru02@gmail.com" && (
        <div className="Message_Approval">
-        <div className="message-Icon" onClick={handleClickMessages}>
-          <BsFillChatDotsFill size={26} />
+        <div className="message-Icon">
+          <BsFillChatDotsFill size={26}style={{ cursor: "pointer"}} onClick={handleClickMessages}/>
           <h5>Messages</h5>
         </div>
-        <div className="PendingApproval" onClick={handleClickApproval} >
-          <FcApprove size={26}/>
+        <div className="PendingApproval" >
+          <FcApprove size={26} style={{ cursor: "pointer"}}  onClick={handleClickApproval} />
           <h5>Pending <br /> Approvals</h5>
           {Approvals && <div className="NoOfMessages">
               <p>{Approvals.length}</p>
@@ -158,9 +149,10 @@ const ListedBlogs = () => {
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} className="modal"><Bloggers /></Modal>
       {userRole === "admin" ? (
         <div id="UpdateBlog">
-          <a id="AddBlog" href="/Add blogs">
+          <Link id="AddBlog" href="/Add blogs">
             Add Blog
-          </a>
+          </Link>
+          
         </div>
       ) : (
         <div></div>

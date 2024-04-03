@@ -3,14 +3,18 @@
     position: sticky;
     top: 0;
     width: 100%;
+    z-index: 10;
   }
   
   .navbar {
+    
     background-color: rgb(32, 125, 231);
+    /* background-color: hsl(212, 81%, 63%); */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0.2, 0.7);
   }
 
   .navbar h1 {
@@ -40,12 +44,13 @@
   }
 
   .navbar a:hover {
-    background-color: rgb(138, 236, 146);
+    background-color: hsl(212, 81%, 73%);
     color: black;
     border-radius: 5px;
   }
   .navbar a.active {
-    background-color: rgb(138, 236, 146);
+    background-color: hsl(212, 81%, 73%);
+    /* background-color: rgb(138, 236, 146); */
     color: black;
     border-radius: 5px;
   }
@@ -53,7 +58,7 @@
   .navbar svg {
     display: none;
   }
-  @media only screen and (min-width: 600px) {
+  @media only screen and (min-width: 690px) {
     .w-6.h-6,
     .closemenu {
       display: none !important;
@@ -65,6 +70,7 @@
 
   @media only screen and (max-width: 990px) {
     .navbar {
+      text-align: center;
       flex-direction: column;
       align-items: center;
     }
@@ -79,6 +85,7 @@
     }
 
     .navbar li {
+      text-align: center;
       margin-left: 0;
       margin-bottom: 10px;
     }
@@ -90,7 +97,7 @@
   }
 
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 690px) {
     .navbar svg {
       display: block;
       margin-left: auto;

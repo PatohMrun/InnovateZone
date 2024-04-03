@@ -6,10 +6,13 @@
   text-align: center;
   font-size: 24px;
   color: #444444;
+  font-weight: bold;
 }
 
 .blogs h3 {
   font-size: 20px;
+  font-weight: bold;
+  color: #444444;
 }
 #UpdateBlog a {
   background-color: goldenrod;
@@ -32,14 +35,15 @@
   top: 17%;
   right: 10%;
   color: #ffb700;
-  cursor: pointer;
+  width: 50px;
 }
 .PendingApproval{
   position: fixed;
+  width: 50px;
+  height: 60px;
   top: 17%;
   right: 2%;
   color: #ffb700;
-  cursor: pointer;
 }
 .NoOfMessages{
   background-color: #000;
@@ -140,11 +144,7 @@
   /* margin-bottom: -20px; */
   padding-bottom: 20px;
 }
-/* .Categories{
-  background-image: url("../photos/BlogBack.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-} */
+
 .welcoming-admin {
   text-align: center;
   color: black;
@@ -152,12 +152,9 @@
   margin-left: 25%;
 }
 .statistics {
-  width: 35%;
+  margin-right: -100px;
 }
-/* #All-stats{
-  position: fixed;
-  bottom: 5%;
-} */
+
 #stat-title {
   margin-left: 20px;
 }
@@ -170,9 +167,11 @@
 #views {
   height: 150px;
   width: 150px;
-  background-color: #f0ebeb;
+  background-color: hsl(212, 81%, 97%);
+  border-top: 3px solid #549CED;
   margin-left: 10px;
   border-radius: 10px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
 }
 #views h4 {
   text-align: center;
@@ -230,13 +229,15 @@
     height: 600px;
   }
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 690px) {
   .EachBlog {
     max-width: 90%;
   }
   #views {
-    height: 20%;
+    height: 115px;
     width: 115px;
+    min-width: 115px;
+    margin: 10px;
   }
   #views h4 {
     font-size: 0.8rem;
@@ -258,8 +259,8 @@
   }
   .PendingApproval{
     position: fixed;
-    top: 15%;
-    right: 8%;
+    top: 14%;
+    right: 10%;
     color: #ffb700;
     cursor: pointer;
   }
@@ -270,9 +271,11 @@
   .statistics {
     width: 100vw;
     display: flex;
+    overflow-x: scroll;
     margin-top: 0px;
-    /* background-color: rgb(32, 179, 64); */
   }
+
+
   #stat-title {
     text-align: center;
   }

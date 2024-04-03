@@ -57,7 +57,7 @@ const ReadBlogs = () => {
   return (
     <div className="myBlogs">
       {data && <h2 dangerouslySetInnerHTML={{ __html: data[0]["Title"] }} />}
-      {data && <p style={{color:"blue", marginTop:"8px"}}>{formatTimestamp(data[0].Date_created)}</p>}
+      {data && <p style={{color:"blue", marginTop:"8px", fontSize: "small"}}>{formatTimestamp(data[0].Date_created)}</p>}
       {data && <div style={{marginTop:"10px"}} dangerouslySetInnerHTML={{ __html: data[0]["Content"] }} />}
       <br />
       {data && (

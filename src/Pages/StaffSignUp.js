@@ -3,6 +3,8 @@ import bcrypt from "bcryptjs";
 import { useHistory } from "react-router-dom";
 import "../styles/Credentials.css";
 import supabase from "../supabase";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 
 
@@ -54,8 +56,6 @@ const StaffSignUp = () => {
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(formData.password, salt);
 
-
-
     const data = {
       name: formData.name,
       email: formData.email,
@@ -63,20 +63,7 @@ const StaffSignUp = () => {
       description: formData.description,
       password: hashedPassword
     };
-    // const { data:DataSupa, error } = await supabase.auth.signUp(data);
-    // if (error) {
-    //   console.error('Sign-up error:', error);
-    //   setIsLoading(false);
-    //   return;
-    // } else {
-    //   console.log('Sign-up successful');
-    //   const user = DataSupa.user;
-    //   console.log('User:', user);
-    // }
-//  if (!/[A-Z]/.test(formData.password) || !/[a-z]/.test(formData.password) || !/\d/.test(formData.password)) {
-//         setPasswordError(true);
-//         return;
-//       }
+  
     fetch("https://blog-server-zeta.vercel.app/signUpAdmins",{
         method: "POST",
         headers: {'content-type':'application/json'},
@@ -97,6 +84,10 @@ const StaffSignUp = () => {
         setIsLoading(false);
     }).catch((err)=>{
         console.log(err);
+      toast.error("Error occured trying to create your account",{
+        position: "top-center",
+        duration: 2000,
+      });
     })
     setIsLoading(false)
   };
@@ -185,6 +176,7 @@ const StaffSignUp = () => {
         {/* <button type="submit">Sign Up</button> */}
         <button type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
       </form>
+      <Toaster/>
     </div>
   );
 };
