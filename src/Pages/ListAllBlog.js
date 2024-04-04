@@ -19,7 +19,6 @@ const ListedBlogs = () => {
   const [userRole, setUserRole] = useState(null);
   const [userEmail, setUserEmail] = useState("");
   const [bloggers, setbloggers] = useState(0);
-
   useEffect(() => {
     const token = Cookies.get("tokens");
     if (token == null) {
@@ -40,6 +39,7 @@ const ListedBlogs = () => {
   const cumulativeViewed = views && views.reduce((acc, view) => {
     return acc + parseInt(view.isViewed);
   }, 0);
+
 
   
   const {
@@ -149,10 +149,9 @@ const ListedBlogs = () => {
       <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)} className="modal"><Bloggers /></Modal>
       {userRole === "admin" ? (
         <div id="UpdateBlog">
-          <Link id="AddBlog" href="/Add blogs">
+          <NavLink id="AddBlog" to="/admin/addblogs">
             Add Blog
-          </Link>
-          
+          </NavLink>
         </div>
       ) : (
         <div></div>

@@ -31,10 +31,10 @@ function App() {
      <Switch>
           <Route  exact path='/Home' component={ ListedBlogs } />
           {/* <Route  exact path='/W' component={ CommentMessagess } /> */}
-          <Route path='/Add blogs' component={ AddBlog } />
-          <Route path='/Business ideas' component={ BusinessIdeas } />
-          <Route path='/Technologies' component={ Technologies } />
-          <Route path='/Enterpreneur skills' component={ Entrepreneur } />
+          <Route path='/admin/addblogs' component={ AddBlog } />
+          <Route path='/category/business-ideas' component={ BusinessIdeas } />
+          <Route path='/category/technologies' component={ Technologies } />
+          <Route path='/category/Enterpreneur-skills' component={ Entrepreneur } />
           <Route path='/Blogs/:id' component={ ReadBlogs } />
           {/* <Route path='/sign up' component={ SignUpForm } /> */}
           <Route path='/login' component={ LoginForm } />
@@ -46,7 +46,6 @@ function App() {
           <Route path='/pending' component={ Pending } />
           <Route path='/bloggers' component={ Bloggers } />
           <Route path='/verify' component={ verification } />
-
           <Route path='/Update/:id' component={ Update } />
           <Route component={ListedBlogs} />
      </Switch>

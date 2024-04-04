@@ -90,27 +90,7 @@ export const formats = [
 // Quill Toolbar component
 export const QuillToolbar = () => (
   <div id="toolbar">
-    <span className="ql-formats">
-      <select className="ql-font" defaultValue="arial">
-        <option value="arial">Arial</option>
-        <option value="comic-sans">Comic Sans</option>
-        <option value="courier-new">Courier New</option>
-        <option value="georgia">Georgia</option>
-        <option value="helvetica">Helvetica</option>
-        <option value="lucida">Lucida</option>
-      </select>
-      <select className="ql-size" defaultValue="medium">
-        <option value="extra-small">Size 1</option>
-        <option value="small">Size 2</option>
-        <option value="medium">Size 3</option>
-        <option value="large">Size 4</option>
-      </select>
-      <select className="ql-header" defaultValue="3">
-        <option value="1">Heading</option>
-        <option value="2">Subheading</option>
-        <option value="3">Normal</option>
-      </select>
-    </span>
+   
     <span className="ql-formats">
       <button className="ql-bold" />
       <button className="ql-italic" />
@@ -133,6 +113,27 @@ export const QuillToolbar = () => (
       <select className="ql-align" />
       <select className="ql-color" />
       <select className="ql-background" />
+    </span>
+    <span className="ql-formats">
+      <select className="ql-font" defaultValue="arial">
+        <option value="arial">Arial</option>
+        <option value="comic-sans">Comic Sans</option>
+        <option value="courier-new">Courier New</option>
+        <option value="georgia">Georgia</option>
+        <option value="helvetica">Helvetica</option>
+        <option value="lucida">Lucida</option>
+      </select>
+      <select className="ql-size" defaultValue="medium">
+        <option value="extra-small">Size 1</option>
+        <option value="small">Size 2</option>
+        <option value="medium">Size 3</option>
+        <option value="large">Size 4</option>
+      </select>
+      <select className="ql-header" defaultValue="3">
+        <option value="1">Heading</option>
+        <option value="2">Subheading</option>
+        <option value="3">Normal</option>
+      </select>
     </span>
     <span className="ql-formats">
       <button className="ql-link" />

@@ -130,8 +130,8 @@ const AddBlog = () => {
     return null;
   } else {
     return (
-      <div className="min-h-screen mx-2 md:mx-20 lg:mx-60 mt-8 mb-2 bg-[#c0dbfc] rounded-md p-2 shadow-md shadow-gray-500">
-        <form style={{ backgroundColor: "#c0dbfc" }} >
+      <div className="min-h-screen mx-2 md:mx-20 lg:mx-60 mt-8 mb-2 relative bg-[#c0dbfc] rounded-md p-2 shadow-md shadow-gray-500">
+        <form style={{ backgroundColor: "#c0dbfc", margin: 0 , padding: 0}} >
           <div className="border-b border-[#57a3ff] flex justify-between items-center">
             {/* Date and Time */}
             <div className="text-2xl font-semibold text-blue-600">
@@ -179,17 +179,9 @@ const AddBlog = () => {
             required
             className="text-2xl font-semibold text-gray-700 mt-4 bg-transparent outline-none  w-full"
           />
-           {/* <textarea
-          name="content"
-          placeholder="write your blog here content..."
-          value={content}
-          onChange={handleInputChange}
-          className="mt-4  text-gray-700 bg-transparent outline-none border-b border-gray-500 w-full"
-          rows={30}
-        />  */}
-
-          <EditorToolbar />
-          <div className="min-h-[50vh] ">
+          
+        
+          <div className=" ">
             <ReactQuill
               modules={modules}
               formats={formats}
@@ -199,6 +191,10 @@ const AddBlog = () => {
               className="TextArea"
             />
           </div>
+          <div className=" absolute bottom-0 bg-[#98aec9] w-full overflow-x-auto whitespace-nowrap">
+            <EditorToolbar />
+          </div>
+         
         </form>
         <div className="fixed bottom-24  right-[12%]">
           <button

@@ -1,4 +1,4 @@
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../styles/Header.css";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
@@ -30,9 +30,9 @@ const showHideMenu = () => {
 
 const MenuRoutes = [
   { href: "/Home", title: "Home" },
-  { href: "/Enterpreneur skills", title: "Entepreneurship" },
-  { href: "/Business ideas", title: "Business Ideas" },
-  { href: "/Technologies", title: "Technologies" },
+  { href: "/category/enterpreneur-skills", title: "Entepreneurship" },
+  { href: "/category/business-ideas", title: "Business Ideas" },
+  { href: "/category/technologies", title: "Technologies" },
   { href: "/login", title: "Login" },
 ];
 
@@ -41,6 +41,7 @@ const Menu = () => {
   const [userRole, setUserRole] = useState(null);
   const [userName, setuserName] = useState(null);
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     
@@ -123,17 +124,30 @@ const Menu = () => {
                   {title}
                 </NavLink>
               ) : (
-                <div key={index} style={{}}>
-                  <button
-                    style={{ backgroundColor: "hsl(212, 81%, 43%)", }}
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </button>
-                  <h5 style={{ color: "gold", whiteSpace: "nowrap"  }}>
-                    Welcome {userName.split(" ").slice(0, 1)}
-                  </h5>
-                </div>
+                // <div key={index} style={{}}>
+                //   <button
+                //     style={{ backgroundColor: "hsl(212, 81%, 43%)", }}
+                //     onClick={handleLogout}
+                //   >
+                //     Logout
+                //   </button>
+                //   <h5 style={{ color: "gold", whiteSpace: "nowrap"  }}>
+                //     Welcome {userName.split(" ").slice(0, 1)}
+                //   </h5>
+                // </div>
+                location.pathname !== "/admin/addblogs" && (
+                  <div key={index}>
+                    <button
+                      style={{ backgroundColor: "hsl(212, 81%, 43%)", }}
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                    <h5 style={{ color: "gold", whiteSpace: "nowrap"  }}>
+                      Welcome {userName.split(" ").slice(0, 1)}
+                    </h5>
+                  </div>
+                )
               )
             ) : (
               <NavLink key={index} onClick={showHideMenu} to={href} style={{ whiteSpace: "nowrap" }}>
