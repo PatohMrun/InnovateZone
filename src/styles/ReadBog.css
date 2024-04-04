@@ -41,6 +41,26 @@
   border-color: gold;
 }
 
+blockquote {
+  padding: 15px;
+  background: #eee;
+  border-radius: 5px;
+}
+
+.blog-content a{
+  text-decoration: underline;
+  color: blue !important;
+  
+}
+
+blockquote p::before {
+  content: '\201C';
+}
+
+blockquote p::after {
+  content: '\201D';
+}
+
 .CommentInput {
   width: "20%";
 }

@@ -71,6 +71,8 @@ const Menu = () => {
           setIsLoggedIn(true);
         }
       }
+    }).catch((error)=>{
+      console.log(error);
     });
   }, [setuserName, setIsLoggedIn]);
   const handleLogout = async () => {
