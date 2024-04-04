@@ -97,9 +97,10 @@ const ReadBlogs = () => {
           <blockquote className="font-bold text-gray-800">
           {relatedBlogs.map((blog) => (
                 <h3 key={blog.id} className="my-2">
-                  <Link to={`/blog/${blog.id}`} className="text-blue-500 hover:underline  border-b">
+                  <Link to={`/blogs/${blog.id}`} className="text-blue-500 hover:underline  border-b">
                   {blog.Title.toLowerCase().charAt(0).toUpperCase() + blog.Title.toLowerCase().slice(1)}.
                   </Link>
+                  
                 </h3>
               ))}
           </blockquote>
