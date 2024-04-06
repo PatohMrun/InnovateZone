@@ -6,14 +6,13 @@ import { RiWhatsappFill } from 'react-icons/ri';
 import { GrTwitter } from 'react-icons/gr';
 import { MdEmail } from 'react-icons/md';
 import useFetch from "./Fetch";
-import Pusher from 'pusher-js'
 
 
 
-const CommentMessages = () => {
-  const { id } = useParams();
-  const[comments,setComments]=useState([])
+const CommentMessages = ({ comments, setComments }) => {
   
+  const { id } = useParams();
+  // const[comments,setComments]=useState([])
 
   const {
     data: likes,
@@ -29,9 +28,10 @@ if(likes){
   const [CommentId, setCommentId] = useState(null);
   const [No_of_Likes, setLikes] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
+  const [loading, setLoading]=useState(false);
   const [formData, setformData] = useState({
     name: "",
-    email: "",
+    email: "jgathiru02@gmail.com",
     comments: "",
     id: id,
     parent_comment_id: "",
@@ -46,23 +46,31 @@ if(likes){
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      setLoading(true);
       const response = await fetch("https://blog-server-zeta.vercel.app/comments", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
       });
       if (response.ok) {
+        const newComment = await response.json();
         setformData({
           name: "",
-          email: "",
+          email: "jgathiru02@gmail.com",
           comments: "",
+          id: id,
+          parent_comment_id: "",
         });
-        window.location.reload();
+        setComments(prevComments => [...prevComments, newComment.addedComment]);
+        setreplyForm(false);
+        setLoading(false);
+        // window.location.reload();
       } else if (!response.ok) {
         throw new Error("Error posting comment");
       }
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   };
 
@@ -93,9 +101,7 @@ if(likes){
   };
   useEffect(() => {
     if (likes) {
-      if(likes.length){
-      setLikes(likes[0].isLiked);
-      }
+      setLikes(likes[0]?.isliked);
     }
   }, [likes]);
 
@@ -127,11 +133,7 @@ if(likes){
         setPopupWindow(null);
       }
     };
-    // const {
-    //   data: comments,
-    //   pending: pending2,
-    //   error2,
-    // } = useFetch("https://blog-server-zeta.vercel.app/getComments/" + id);
+
 
     useEffect(() => {
       fetch(`https://blog-server-zeta.vercel.app/getComments/${id}`)
@@ -144,76 +146,18 @@ if(likes){
           }
         });
     }, [id]);
+
     
-    useEffect(() => {
-      const pusher = new Pusher('7f4d57257fa18a056578', {
-        cluster: 'ap2',
-        encrypted: true
-      });
-    
-      const channel = pusher.subscribe('innovate-zone');
-      channel.bind('new-comment', data => {
-        console.log('Received new comment:', data); // Add this line to log incoming comments
-        setComments(prevComments => [...prevComments, data]);
-      });
-    
-      return () => {
-        channel.unbind_all();
-        channel.unsubscribe();
-      };
-    }, [id]);
-    
-    
-  // useEffect(() => {
-  //   const pusher = new Pusher("YOUR_APP_KEY", {
-  //     cluster: "YOUR_APP_CLUSTER",
-  //     encrypted: true
-  //   });
-  
-  //   const channel = pusher.subscribe("innovate-Zone");
-  //   channel.bind("new-comment", (data) => {
-  //     setComments([...comments, data]);
-  //   });
-  
-  //   return () => {
-  //     channel.unbind_all();
-  //     channel.unsubscribe();
-  //   };
-  // }, [comments]);
 
   return (
     <div>
-      <div style={{ marginLeft: "10px", margin: "10px", marginTop: "70px" }}>
+      <div className=" mt-10 flex justify-between">
         <div className="Social-icons">
          <AiTwotoneLike
             size={26}
             style={iconStyle}
             onClick={handleLikeClick}
           />
-          {/* <FaComment
-            style={{color:"#D36000", margin:"5px"}}
-            size={26}
-          /> */}
-           <div style={{ float: "right" }}>
-      <FaShareAlt style={{ color: "#17ACCD", margin: "5px"}} size={26} />
-      <FaFacebook className="share-icon" style={{ color: "#1773EA", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(facebookShareUrl, "Facebook")} />
-      <GrTwitter className="share-icon" style={{ color: "#1C96E8", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(twitterShareUrl, "Twitter")} />
-      <RiWhatsappFill className="share-icon" style={{ color: "#53CC60", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(whatsappShareUrl, "WhatsApp")} />
-      <MdEmail className="share-icon" style={{ color: "#D64135", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(emailShareUrl, "Email")} />
-      <h4
-        style={{
-          borderRadius: "50%",
-          width: "30px",
-          height: "30px",
-          backgroundColor: "lightblue",
-          textAlign: "center",
-          lineHeight: "30px",
-        }}
-        onClick={closePopupWindow}
-      >
-        8
-      </h4>
-    </div>
           <h4
             style={{
               borderRadius: "50%",
@@ -227,10 +171,36 @@ if(likes){
             {No_of_Likes}
           </h4>
         </div>
+        <div className="">
+            <div className="flex justify-center items-center">
+                    <FaShareAlt style={{ color: "#17ACCD", margin: "5px"}} size={26} />
+                  {/* <h4
+                style={{
+                  borderRadius: "50%",
+                  width: "30px",
+                  height: "30px",
+                  backgroundColor: "lightblue",
+                  textAlign: "center",
+                  lineHeight: "30px",
+                }}
+                onClick={closePopupWindow}
+              >
+                8
+              </h4> */}
+              <p className="font-bold text-gray-600">share</p>
+            </div>
+           <div className="flex">
+            <FaFacebook className="share-icon" style={{ color: "#1773EA", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(facebookShareUrl, "Facebook")} />
+              <GrTwitter className="share-icon" style={{ color: "#1C96E8", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(twitterShareUrl, "Twitter")} />
+              <RiWhatsappFill className="share-icon" style={{ color: "#53CC60", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(whatsappShareUrl, "WhatsApp")} />
+              <MdEmail className="share-icon" style={{ color: "#D64135", margin: "5px",cursor:"pointer" }} size={26} onClick={() => openPopupWindow(emailShareUrl, "Email")} />
+           </div>
+     
+    </div>
       </div>
       <h3 style={{textAlign:"center", textDecoration:'underline', margin:"10px"}}>Comments</h3>
       {comments &&
-      comments.filter((comment) => comment.post_id == id).length > 0 ? null : (
+      comments.filter((comment) => comment?.post_id == id).length > 0 ? null : (
         <p style={{ textAlign: "center", margin: "40px" }}>
           Be the first one to comment!
         </p>
@@ -249,7 +219,7 @@ if(likes){
               }}
               key={index}
             >
-              <h3>{comment.name}</h3>
+              <h3 className="font-bold text-gray-700">{comment.name}</h3>
               {comment.content}
               <br />
 
@@ -268,7 +238,7 @@ if(likes){
                       }}
                       key={index}
                     >
-                      <h5>{reply.name}</h5>
+                      <h5 className="font-bold text-gray-700">{reply.name}</h5>
                       <p style={{ fontSize: "15px" }}>{reply.content}</p>
                     </div>
                   ))}
@@ -282,7 +252,7 @@ if(likes){
                 Reply
               </p>
               {replyForm && CommentId === comment.comment_id && (
-                <form className="comment-reply-form"
+                <form className="CommentForm"
                   onSubmit={handleSubmit}
                   style={{
                     marginLeft: "0",
@@ -292,11 +262,13 @@ if(likes){
                 >
                   <h4>Reply</h4>
                   <textarea
-                    style={{ padding: "5px" }}
+                    style={{ padding: "5px", backgroundColor: "#CCE1FA", minWidth: "100%" }}
+                    className="rounded-md"
                     name="comments"
+                    placeholder="Reply here"
                     id=""
                     cols="5"
-                    rows="8"
+                    rows="3"
                     onChange={handleInputChange}
                     required
                   ></textarea>
@@ -305,22 +277,24 @@ if(likes){
                   <input
                     type="text"
                     name="name"
-                    style={{ height: "30px" }}
+                    placeholder="your cool username"
+                    className="rounded-md py-4"
+                    style={{ padding: "5px",height: "30px", backgroundColor: "#CCE1FA", minWidth: "100%" }}
                     value={formData.name}
                     required
                     onChange={handleInputChange}
                   />
                   <br />
-                  <h4>Email:</h4>
-                  <input
-                    type="text"
-                    name="email"
-                    style={{ height: "30px" }}
-                    value={formData.email}
-                    required
-                    onChange={handleInputChange}
-                  />
-                  <button type="submit">Submit</button>
+                  <button type="submit"
+                  disabled={loading}
+                  style={{backgroundColor: "#1E83F7",}}
+                  >
+                      {loading ? (
+                        <div className="loader cursor-not-allowed">submiting...</div>
+                      ) : (
+                        <p>Reply</p>
+                      )}
+                  </button>
                 </form>
               )}
             </div>

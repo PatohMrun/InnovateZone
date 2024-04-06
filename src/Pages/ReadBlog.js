@@ -6,6 +6,7 @@ import CommentMessages from "../Components/ComMessages";
 import Replies from "../Components/ComReplies";
 import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
+import toast, { Toaster } from 'react-hot-toast';
 
 import "../styles/ReadBog.css";
 
@@ -19,15 +20,35 @@ const ReadBlogs = () => {
   const Delete = async () => {
     await fetch("https://blog-server-zeta.vercel.app/blogs/" + id, {
       method: "DELETE",
-    }).then(() => {
-      console.log("Deleted");
-      history.push("/");
+    }).then((res) => {
+      if (res.ok) {
+        toast.success("Blog Deleted Successfully",{
+          duration:2000,
+          position:"top-center",
+        });
+        history.push("/");
+      }
+      else{
+        toast.error("Error Deleting Blog",{
+          duration:2000,
+          position:"top-center",
+        })
+      }
+      
+    }).catch((error)=>{
+      toast.error("Error Deleting Blog",{
+        duration:2000,
+        position:"top-center",
+      })
+      console.log(error);
     });
   };
+//shared among the childrens to store the state of comments 
+  const [comments, setComments] = useState([]);
   
   const [userRole, setUserRole] = useState(null);
   const [relatedBlogs, setRelatedBlogs] = useState([]);
-  console.log(relatedBlogs);
+  // console.log(relatedBlogs);
 
   useEffect(() => {
     const token = Cookies.get("tokens");
@@ -89,16 +110,16 @@ const ReadBlogs = () => {
 // console.log(data.Date_created);
   return (
     <div className="myBlogs">
-      {data && <h2 dangerouslySetInnerHTML={{ __html: data[0]["Title"] }} />}
-      {data && <p style={{color:"blue", marginTop:"8px", fontSize: "small"}}>{formatTimestamp(data[0].Date_created)}</p>}
-      {data && <div className="blog-content" style={{marginTop:"10px" }} dangerouslySetInnerHTML={{ __html: data[0]["Content"] }} />}
+      {data && <h2 dangerouslySetInnerHTML={{ __html: data[0]["title"] }} />}
+      {data && <p style={{color:"blue", marginTop:"8px", fontSize: "small"}}>{formatTimestamp(data[0].date_created)}</p>}
+      {data && <div className="blog-content" style={{marginTop:"10px" }} dangerouslySetInnerHTML={{ __html: data[0]["content"] }} />}
       {data && <div className="my-2">
           <h3 className="font-bold text-xl">Also Read</h3>
           <blockquote className="font-bold text-gray-800">
           {relatedBlogs.map((blog) => (
                 <h3 key={blog.id} className="my-2">
                   <a href={`/blogs/${blog.id}`} className="text-blue-500 hover:underline  border-b">
-                  {blog.Title.toLowerCase().charAt(0).toUpperCase() + blog.Title.toLowerCase().slice(1)}.
+                  {blog.title.toLowerCase().charAt(0).toUpperCase() + blog.title.toLowerCase().slice(1)}.
                   </a>
                 </h3>
               ))}
@@ -109,21 +130,28 @@ const ReadBlogs = () => {
       {data && (
         <p style={{ float: "right", fontSize:"medium", color: "blue" }}>
           Written by:{" "}
-          <span dangerouslySetInnerHTML={{ __html: data[0]["Author"] }} />
+          <span dangerouslySetInnerHTML={{ __html: data[0]["author"] }} />
         </p>
       )}
-      {data && userRole === "admin" && <AiFillDelete size={30} onClick={()=>{
-        if (window.confirm("Are you sure you want to delete this post?")) {
-      Delete();
-    }
-      }}/>}
-      {data && userRole === "admin" &&  <Link to={'/Update/'+ id}><AiFillEdit size={30}/></Link>}
+      {data && userRole === "admin" && 
+      <div className="flex gap-3">
+            <AiFillDelete size={30} onClick={()=>{
+            if (window.confirm("Are you sure you want to delete this post?")) {
+          Delete();
+        }
+          }}/>
+          <Link to={'/Update/'+ id}><AiFillEdit size={30}/></Link>
+      </div>
+      }
       {pending && <div>Loading...</div>}
       {Error && <div>An error occured...</div>}
 
-    {!pending && !Error && <CommentMessages />}
-    {!pending && !Error && <Replies />}
+    {/* {!pending && !Error && <CommentMessages />}
+    {!pending && !Error && <Replies />} */}
+    {!pending && !Error && <CommentMessages comments={comments} setComments={setComments} />}
+      {!pending && !Error && <Replies setComments={setComments} />}
       <br />
+      <Toaster />
     </div>
   );
 };

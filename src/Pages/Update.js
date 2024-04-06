@@ -28,9 +28,9 @@ const Update = () => {
   );
 
   useEffect(() =>{
-    {data && setTitle(data[0].Title)}
-    {data && setContent(data[0].Content)}
-    {data && setAuthor(data[0].Author)}
+    {data && setTitle(data[0].title)}
+    {data && setContent(data[0].content)}
+    {data && setAuthor(data[0].author)}
   }
   ,[id, data])
 
@@ -82,7 +82,7 @@ const Update = () => {
         setError(false);
         toast.success('Blog updated successfully')
         setTimeout(() => {
-          history.push("/");
+          history.push(`/blogs/${id}`);
         }, 2000);
       })
       .catch((error) => {
@@ -92,7 +92,7 @@ const Update = () => {
           duration: 7000,
         })
         setError(true)
-        console.error("There was a problem with the fetch operation:", error);
+        console.log("There was a problem with the fetch operation:", error);
       })
   };
 

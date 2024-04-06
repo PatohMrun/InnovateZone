@@ -101,7 +101,7 @@ const LoginForm = () => {
     <div className="signup-form">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <h2>Login to your Account</h2>
+          <h2 className="font-bold">Login to your Account</h2>
           <label htmlFor="email">Email:</label>
           <input
             type="email"
@@ -131,7 +131,18 @@ const LoginForm = () => {
           />
           <b>Show password</b>
         </div>
-        <button type="submit">{isLoading ? "Loading..." : "Login"}</button>
+        <button 
+        style={{backgroundColor: "#207DE7"}}
+          type="submit"
+          className={`flex items-center justify-center w-full h-12 rounded-full bg-blue-500 text-white shadow-lg hover:bg-blue-300 focus:outline-none ${isLoading ? 'cursor-not-allowed' : ''}`}
+          disabled={isLoading}
+        >
+          
+        {isLoading ? <div className="loader cursor-not-allowed">loading...</div> : (
+             <p>Login</p>
+            )}
+        
+        </button>
       </form>
 
       {/* <h4 style={{ textAlign: "center", marginTop: "1px" }}>
@@ -160,16 +171,16 @@ const LoginForm = () => {
             Sign up Here
           </Link>
         }
-        <div className="line-container">
+        {/* <div className="line-container">
           <div className="line"></div>
           <div className="or">or</div>
           <div className="line"></div>
-        </div>
+        </div> */}
       </h4>
-      <button className="google-btn" onClick={googleLogin}>
+      {/* <button className="google-btn" onClick={googleLogin}>
         <FcGoogle size={20} style={{ marginRight: "50px" }} /> Continue With
         Google
-      </button>
+      </button> */}
       {signUpSuccess && (
         <div style={{ color: "green" }} className="signup-success-popup">
           <p>Login successful {data.message}! Welcome</p>

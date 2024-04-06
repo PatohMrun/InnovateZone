@@ -28,11 +28,11 @@ const CategoryBlogs = ({ category, title }) => {
   if (data !== null) {
     if (userRole === "admin") {
       if (userEmail === "jgathiru02@gmail.com") {
-        filteredData = data.filter((data) => data.BlogType === category );
+        filteredData = data.filter((data) => data.blogtype === category );
         // console.log(filteredData.length)
         AllBlog += filteredData.length;
       } else {
-        filteredData = data.filter((blog) => blog.email === userEmail && blog.BlogType === category);
+        filteredData = data.filter((blog) => blog.email === userEmail && blog.blogtype === category);
         filteredData.forEach((blog) => {
           blogCountsByUser[blog.email] =
             (blogCountsByUser[blog.email] || 0) + 1;
@@ -51,7 +51,6 @@ const CategoryBlogs = ({ category, title }) => {
 
   return (
     <div>
-      
          {userRole === "admin" ? (
         <div id="UpdateBlog">
           <a id="AddBlog" href="/Add blogs">

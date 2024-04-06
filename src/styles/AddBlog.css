@@ -38,6 +38,12 @@
 .Button:hover{
   background-color: #1E83F7;
 }
+
+.editor{
+  opacity: 100% !important;
+  color: aliceblue !important;
+  /* background-color: black !important; */
+}
   @media only screen and (max-width: 600px) {
     .BlogInput form {
         width: 90%;

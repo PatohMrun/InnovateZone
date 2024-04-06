@@ -115,8 +115,9 @@ const Menu = () => {
             title === "Login" ? (
               !isLoggedin ? (
                 <NavLink
+                className="bg-blue-500 shadow-sm shadow-gray-600 border-gray-400"
                   style={{
-                    backgroundColor: "hsl(212, 81%, 33%)",
+                    // backgroundColor: "hsl(212, 81%, 63%)",
                     borderRadius: "10px",
                   }}
                   key={index}
@@ -140,7 +141,8 @@ const Menu = () => {
                 location.pathname !== "/admin/addblogs" && (
                   <div key={index}>
                     <button
-                      style={{ backgroundColor: "hsl(212, 81%, 43%)", }}
+                     className="bg-blue-600 shadow-sm shadow-gray-600 border-gray-400 hover:bg-blue-500"
+                      // style={{ backgroundColor: "hsl(212, 81%, 43%)", }}
                       onClick={handleLogout}
                     >
                       Logout

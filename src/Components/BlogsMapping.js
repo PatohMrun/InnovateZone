@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import "../styles/categoryBlogs.css"
+import useFetch from "../Components/Fetch";
+import { FaEye } from "react-icons/fa6";
 
-const Content = ({ data, title }) => {
+const Content = ({ data, title, userEmail }) => {
   const sortedData = data.sort((a, b) => b.id - a.id);
 
   const formatTimestamp = (timestamp) => {
@@ -19,6 +21,22 @@ const Content = ({ data, title }) => {
     const formattedTime = hours + ':' + minutes + ' ' + ampm;
     return `${formattedDate} at ${formattedTime}`;
   };
+
+
+  const { data:views, pending:pedView, Errors:viewErr } = useFetch("https://blog-server-zeta.vercel.app/getViews");
+
+  const cumulativeViewed = {};
+
+  // Iterate over the views data
+  views?.forEach(view => {
+    const { post_id, isviewed } = view;
+    // If the post_id is not already in cumulativeViewed, initialize it with 0 views
+    if (!cumulativeViewed[post_id]) {
+      cumulativeViewed[post_id] = 0;
+    }
+    // Add the views to the cumulative count for the respective post_id
+    cumulativeViewed[post_id] += parseInt(isviewed); // Convert isviewed to integer before adding
+  });
   return (
     <div className="blogs">
       <h2>{title}</h2>
@@ -27,13 +45,16 @@ const Content = ({ data, title }) => {
           <div className="EachBlog">
             <Link to={`/blogs/${sortedData.id}`}>
               <h3>
-                {sortedData.Title}
+                {sortedData.title?.toUpperCase()}
               </h3>
-              <p style={{color:"blue", marginTop:"8px", fontSize: "medium"}}>{formatTimestamp(sortedData.Date_created)}</p>
-              <div id="ContentDisplay" dangerouslySetInnerHTML={{ __html: sortedData.Content }} />
-              <p style={{ color: "blue", float: "right", fontSize: "medium" }}>
-                Written by: {sortedData.Author}
-              </p>
+              <p style={{color:"blue", marginTop:"8px", fontSize: "medium"}}>{formatTimestamp(sortedData.date_created)}</p>
+              <div id="ContentDisplay" dangerouslySetInnerHTML={{ __html: sortedData.content }} />
+              <div className={userEmail ? "flex justify-between" : ""}>
+                {userEmail && <div className="flex gap-2 items-center text-blue-500"><FaEye /> {cumulativeViewed[sortedData.id] || 0}</div>}
+                <p style={{ color: "blue", float:"right",  fontSize: "medium" }}>
+                  Written by: {sortedData.author}
+                </p>
+              </div>
             </Link>
           </div>
         </div>

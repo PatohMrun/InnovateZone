@@ -50,8 +50,6 @@ const StaffSignUp = () => {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('data');
-    setIsLoading(true);
     setIsLoading(true);
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(formData.password, salt);
@@ -75,33 +73,70 @@ const StaffSignUp = () => {
           ...formData,
           email: "",
         });
+        
         throw new Error("Using same email");
       }
-        console.log("Sign up form submitted: ", data);
-        setSignUpSuccess(true);
-        history.push('/verify');
-        // history.push('/pending')
-        setIsLoading(false);
+      else if (res.status ===200) {
+        return res.json();
+      }else{
+        throw new Error("Error occured trying to create your account");
+      }
+      
+    }).then(async (data)=>{
+      // send a post api to a certain server that will send verification token to the email address
+      // const response = await fetch('http://localhost:8080/api/blog/verify',{
+      const response = await fetch('https://mailing-server-six.vercel.app/api/blog/verify',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+        ,
+        body: JSON.stringify({
+          email: data.email,
+          name: data.name,
+          // token: data.token
+        })
+      })
+      if (response.ok) {
+        toast.success("Verification link sent to your email",{
+          position: "top-center",
+          duration: 2000,
+        });
+        setFormData({
+          ...formData,
+          email: "",
+        });
+      }
     }).catch((err)=>{
-        console.log(err);
-      toast.error("Error occured trying to create your account",{
-        position: "top-center",
-        duration: 2000,
-      });
+        if (err.message=="Using same email") {
+          toast.error("Error! This email already exists",{
+            position: "top-center",
+            duration: 3000,
+          });
+        }
+        else{
+          toast.error("Error occured trying to create your account",{
+            position: "top-center",
+            duration: 2000,
+          });
+        }
+    }).finally(()=>{
+      setIsLoading(false)
     })
-    setIsLoading(false)
   };
 
   return (
     <div className="signup-form">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-            <h2>Sign up as Guest Blogger</h2>
+            <h2 className="font-bold text-lg text-gray-600">Sign up as Guest Blogger</h2>
           <label htmlFor="name">Name:</label>
           <input style={{padding:"10px"}}
             type="text"
             name="name"
             id="name"
+            placeholder="Your name"
             required
             value={formData.name}
             onChange={handleInputChange}
@@ -125,6 +160,7 @@ const StaffSignUp = () => {
             type="text"
             name="phone_number"
             id="phone_number"
+            placeholder="Your phone number"
             required
             value={formData.phone_number}
             onChange={handleInputChange}
@@ -136,6 +172,8 @@ const StaffSignUp = () => {
             type={showPassword ? "text" : "password"}
             name="password"
             id="password"
+            placeholder="Your password"
+            required
             value={formData.password}
             onChange={handleInputChange}
           />
@@ -144,16 +182,16 @@ const StaffSignUp = () => {
             id="showPassword"
             checked={showPassword}
             onChange={() => setShowPassword(!showPassword)}
-          /><b>Show password</b>
+          /><span className="text-sm text-gray-500">Show password</span>
         </div>
         <div className="form-group">
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">Description</label><span className="text-gray-500 text-sm">Tell us more about yourself and blog category you want to contribute</span>
           <input
             type="text"
             name="description"
             id="description"
             required
-            placeholder="Tell me more about yourself and Blog category you want to contribute..."
+            placeholder="Your description"
             value={formData.description}
             onChange={handleInputChange}
           />
@@ -174,7 +212,7 @@ const StaffSignUp = () => {
           </div>
         )}
         {/* <button type="submit">Sign Up</button> */}
-        <button type="submit">{isLoading ? "Loading..." : "Sign Up"}</button>
+        <button type="submit" disabled={isLoading} style={{ cursor: isLoading ? 'not-allowed' : 'pointer' }} >{isLoading ? "Loading..." : "Become a blogger"}</button>
       </form>
       <Toaster/>
     </div>

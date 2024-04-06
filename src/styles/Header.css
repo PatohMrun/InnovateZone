@@ -45,13 +45,13 @@
 
   .navbar a:hover {
     background-color: hsl(212, 81%, 73%);
-    color: black;
+    color: gray;
     border-radius: 5px;
   }
   .navbar a.active {
     background-color: hsl(212, 81%, 73%);
     /* background-color: rgb(138, 236, 146); */
-    color: black;
+    color: gray;
     border-radius: 5px;
   }
 

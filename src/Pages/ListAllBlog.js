@@ -32,13 +32,21 @@ const ListedBlogs = () => {
   }, []);
 
   const { data, pending, Errors } = useFetch(`https://blog-server-zeta.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq`);
+  // console.log(data);
   // {data && console.log(data);}
   const { data:views, pending:pedView, Errors:viewErr } = useFetch("https://blog-server-zeta.vercel.app/getViews");
-  // {views && console.log(views)}
 
-  const cumulativeViewed = views && views.reduce((acc, view) => {
-    return acc + parseInt(view.isViewed);
-  }, 0);
+
+
+let cumulativeViewed = 0;
+
+// Iterate over the views data
+views?.forEach(view => {
+  const { isviewed } = view;
+  // Add the views to the total cumulative count
+  cumulativeViewed += parseInt(isviewed); // Convert isviewed to integer before adding
+});
+
 
 
   
@@ -129,7 +137,7 @@ const ListedBlogs = () => {
 
   return (
     <div>
-      {userEmail === "jgathiru02@gmail.com" && (
+      {userEmail == "jgathiru02@gmail.com" && (
        <div className="Message_Approval">
         <div className="message-Icon">
           <BsFillChatDotsFill size={26}style={{ cursor: "pointer"}} onClick={handleClickMessages}/>
@@ -184,7 +192,7 @@ const ListedBlogs = () => {
                 <div className="statistics">
                   <div id="views">
                     <h4>Views</h4>
-                    {cumulativeViewed ? (<h2>{cumulativeViewed}</h2>):(<h2>1</h2>)}
+                    {cumulativeViewed ? (<h2>{cumulativeViewed}</h2>):(<h2>2</h2>)}
                   </div>
                   <br />
                   <div id="views">
@@ -214,6 +222,7 @@ const ListedBlogs = () => {
               <Blogs
                 data={filteredData}
                 title="Get insighted by powerful blogs"
+                userEmail={userEmail}
               />
             </div>
           </section>
