@@ -3,7 +3,7 @@ import useFetch from "../Components/Fetch";
 import "../styles/Messages.css"
 
 function Messages() {
-  const {data:sms, error, pending}=useFetch('https://blog-server-zeta.vercel.app/sms')
+  const {data:sms, error, pending}=useFetch('https://innovate-zone-server.vercel.app/sms')
   const [mess, setMess] = useState([]);
   
 
@@ -44,7 +44,7 @@ function Messages() {
 
   const handleDelete=(messageID)=>{
     console.log("tiga wagna");
-    fetch("https://blog-server-zeta.vercel.app/DeleteMessage",{
+    fetch("https://innovate-zone-server.vercel.app/DeleteMessage",{
       method:"POST",
       headers:{"content-type":"application/json"},
       body:JSON.stringify({messageID})

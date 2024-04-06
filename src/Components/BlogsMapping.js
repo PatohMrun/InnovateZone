@@ -23,7 +23,7 @@ const Content = ({ data, title, userEmail }) => {
   };
 
 
-  const { data:views, pending:pedView, Errors:viewErr } = useFetch("https://blog-server-zeta.vercel.app/getViews");
+  const { data:views, pending:pedView, Errors:viewErr } = useFetch("https://innovate-zone-server.vercel.app/getViews");
 
   const cumulativeViewed = {};
 

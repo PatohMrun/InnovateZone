@@ -28,13 +28,13 @@ const Approval = () => {
     setIsLoaded(true);
   }, []);
 
-  const { data, pending, error } = useFetch("https://blog-server-zeta.vercel.app/Approval");
+  const { data, pending, error } = useFetch("https://innovate-zone-server.vercel.app/Approval");
   console.log(data);
     
   const handleApprove = (e, email) => {
     e.preventDefault();
     setApprovals({ ...approvals, [email]: true });
-    fetch("https://blog-server-zeta.vercel.app/Approved", {
+    fetch("https://innovate-zone-server.vercel.app/Approved", {
       method: "post",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ email }),
@@ -70,7 +70,7 @@ const Approval = () => {
   };
 
   const handleReject=(e, email)=>{
-    fetch("https://blog-server-zeta.vercel.app/rejected",{
+    fetch("https://innovate-zone-server.vercel.app/rejected",{
       method:"post",
       headers:{'content-type':'application/json'},
       body:JSON.stringify({ email })

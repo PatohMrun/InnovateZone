@@ -24,7 +24,7 @@ const Update = () => {
   const history = useHistory();
   const [loading, setLoading]=useState(false)
   const { data, pending, Error } = useFetch(
-    "https://blog-server-zeta.vercel.app/blogs/" + id +"?api_key=UD9VZKyRU5eIZzPq"
+    "https://innovate-zone-server.vercel.app/blogs/" + id +"?api_key=UD9VZKyRU5eIZzPq"
   );
 
   useEffect(() =>{
@@ -62,7 +62,7 @@ const Update = () => {
     }
     setLoading(true)
 
-    fetch("https://blog-server-zeta.vercel.app/blogUpdate", {
+    fetch("https://innovate-zone-server.vercel.app/blogUpdate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),

@@ -86,7 +86,7 @@ const AddBlog = () => {
       return;
     }
     setLoading(true)
-    fetch("https://blog-server-zeta.vercel.app/blogs", {
+    fetch("https://innovate-zone-server.vercel.app/blogs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),

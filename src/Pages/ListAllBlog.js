@@ -31,10 +31,10 @@ const ListedBlogs = () => {
     setUserRole(role);
   }, []);
 
-  const { data, pending, Errors } = useFetch(`https://blog-server-zeta.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq`);
+  const { data, pending, Errors } = useFetch(`https://innovate-zone-server.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq`);
   // console.log(data);
   // {data && console.log(data);}
-  const { data:views, pending:pedView, Errors:viewErr } = useFetch("https://blog-server-zeta.vercel.app/getViews");
+  const { data:views, pending:pedView, Errors:viewErr } = useFetch("https://innovate-zone-server.vercel.app/getViews");
 
 
 
@@ -54,7 +54,7 @@ views?.forEach(view => {
     data: Admins,
     pending: ped1,
     Errors: err1,
-  } = useFetch("https://blog-server-zeta.vercel.app/GuestBloggers?api_key=UD9VZKyRU5eIZzPq");
+  } = useFetch("https://innovate-zone-server.vercel.app/GuestBloggers?api_key=UD9VZKyRU5eIZzPq");
   let GuestBloggers=null;
   if (Admins) {
     GuestBloggers=Admins.length
@@ -133,7 +133,7 @@ views?.forEach(view => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   //look for the whether there is pending apprvas
-  const { data:Approvals, pending:peed, error } = useFetch("https://blog-server-zeta.vercel.app/Approval");
+  const { data:Approvals, pending:peed, error } = useFetch("https://innovate-zone-server.vercel.app/Approval");
 
   return (
     <div>

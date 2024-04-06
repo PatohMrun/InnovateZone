@@ -13,12 +13,12 @@ import "../styles/ReadBog.css";
 const ReadBlogs = () => {
   const { id } = useParams();
   const { data, pending, Error } = useFetch(
-    "https://blog-server-zeta.vercel.app/blogs/" + id +"?api_key=UD9VZKyRU5eIZzPq"
+    "https://innovate-zone-server.vercel.app/blogs/" + id +"?api_key=UD9VZKyRU5eIZzPq"
   );
   // const [CommmentSubmitted, setCommentSubmitted] = useState(false);
   const history = useHistory();
   const Delete = async () => {
-    await fetch("https://blog-server-zeta.vercel.app/blogs/" + id, {
+    await fetch("https://innovate-zone-server.vercel.app/blogs/" + id, {
       method: "DELETE",
     }).then((res) => {
       if (res.ok) {
@@ -64,7 +64,7 @@ const ReadBlogs = () => {
     // Fetch related blogs here
     const fetchRelatedBlogs = async () => {
       try {
-        const response = await fetch("https://blog-server-zeta.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq");
+        const response = await fetch("https://innovate-zone-server.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq");
         if (!response.ok) {
           throw new Error("Failed to fetch related blogs");
         }

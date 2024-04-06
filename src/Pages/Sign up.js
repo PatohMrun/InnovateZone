@@ -68,7 +68,7 @@ useEffect(() => {
       };
 
 
-    fetch("https://blog-server-zeta.vercel.app/signUps",{
+    fetch("https://innovate-zone-server.vercel.app/signUps",{
         method: "POST",
         headers: {'content-type':'application/json'},
         body: JSON.stringify(data)       

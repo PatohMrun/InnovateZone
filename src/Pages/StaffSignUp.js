@@ -62,7 +62,7 @@ const StaffSignUp = () => {
       password: hashedPassword
     };
   
-    fetch("https://blog-server-zeta.vercel.app/signUpAdmins",{
+    fetch("https://innovate-zone-server.vercel.app/signUpAdmins",{
         method: "POST",
         headers: {'content-type':'application/json'},
         body: JSON.stringify(data)   
