@@ -39,7 +39,7 @@ const CategoryBlogs = ({ category, title }) => {
         });
       }
     } else {
-      filteredData = data.filter((data) => data.BlogType === category);
+      filteredData = data.filter((data) => data.blogtype === category);
     }
   }
   // console.log(blogCountsByUser);
