@@ -31,7 +31,7 @@ const showHideMenu = () => {
 const MenuRoutes = [
   { href: "/Home", title: "Home" },
   { href: "/category/enterpreneur-skills", title: "Entepreneurship" },
-  { href: "/category/business-ideas", title: "Business Ideas" },
+  { href: "/category/business-ideas", title: "Business-Ideas" },
   { href: "/category/technologies", title: "Technologies" },
   { href: "/login", title: "Login" },
 ];
@@ -96,7 +96,12 @@ const Menu = () => {
   return (
     <div className="Menus">
       <nav className="navbar">
-        <h1>YoungProfessor.Blog</h1>
+        <div className="">
+        <h1 className="px-1">Justprenuer </h1>
+        <p className="text-gray-700">Entreprenuer&apos;s Guide </p>
+        </div>
+        
+        {/* <h1>YoungProfessor.Blog</h1> */}
         <AiOutlineMenu
           onClick={showHideMenu}
           size={26}

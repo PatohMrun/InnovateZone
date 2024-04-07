@@ -221,7 +221,7 @@ views?.forEach(view => {
             <div id="list-all-blogs">
               <Blogs
                 data={filteredData}
-                title="Get insighted by powerful blogs"
+                title="Get insighted by powerful blogs."
                 userEmail={userEmail}
               />
             </div>
