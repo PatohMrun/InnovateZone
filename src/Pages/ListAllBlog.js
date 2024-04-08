@@ -272,4 +272,5 @@ export default ListedBlogs;
 
 
 // "crypto-browserify": "^3.12.0",
+// className=" text-xs md:text-sm"
 
