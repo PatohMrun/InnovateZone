@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 import { useHistory } from "react-router-dom";
 import "../styles/Credentials.css";
-import supabase from "../supabase";
+// import supabase from "../supabase";
 import toast, { Toaster } from 'react-hot-toast';
 
 
@@ -51,15 +51,16 @@ const StaffSignUp = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setIsLoading(true);
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(formData.password, salt);
+    // usijaribu kuuncomment hii code otherwise utalia
+    // const salt = bcrypt.genSaltSync(10);
+    // const hashedPassword = bcrypt.hashSync(formData.password, salt);
 
     const data = {
       name: formData.name,
       email: formData.email,
       phone_number: formData.phone_number,
       description: formData.description,
-      password: hashedPassword
+      password: formData.password
     };
   
     fetch("https://innovate-zone-server.vercel.app/signUpAdmins",{
@@ -103,6 +104,7 @@ const StaffSignUp = () => {
           position: "top-center",
           duration: 2000,
         });
+        setSignUpSuccess(true);
         setFormData({
           ...formData,
           email: "",

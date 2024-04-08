@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 import { useHistory } from "react-router-dom";
 import "../styles/Credentials.css"
 
@@ -49,8 +49,8 @@ useEffect(() => {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(formData.password, salt);
+    // const salt = bcrypt.genSaltSync(10);
+    // const hashedPassword = bcrypt.hashSync(formData.password, salt);
 
     
     // if (!validator.isStrongPassword(formData.password)) {
@@ -64,7 +64,7 @@ useEffect(() => {
       const data = {
         name: formData.name,
         email: formData.email,
-        password: hashedPassword
+        password: formData.password
       };
 
 

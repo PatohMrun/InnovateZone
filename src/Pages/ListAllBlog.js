@@ -141,11 +141,11 @@ views?.forEach(view => {
        <div className="Message_Approval">
         <div className="message-Icon">
           <BsFillChatDotsFill size={26}style={{ cursor: "pointer"}} onClick={handleClickMessages}/>
-          <h5>Messages</h5>
+          <h5 className=" text-xs md:text-sm">Messages</h5>
         </div>
         <div className="PendingApproval" >
           <FcApprove size={26} style={{ cursor: "pointer"}}  onClick={handleClickApproval} />
-          <h5>Pending <br /> Approvals</h5>
+          <h5 className=" text-xs md:text-sm">Pending <br /> Approvals</h5>
           {Approvals && <div className="NoOfMessages">
               <p>{Approvals.length}</p>
           </div>}

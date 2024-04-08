@@ -212,11 +212,11 @@
 
 @media only screen and (max-width: 990px) {
   .message-Icon{
-    top: 25%;
+    top: 30%;
     right: 15%;
   }
   .PendingApproval{
-    top: 25%;
+    top: 30%;
     right: 1%;
   }
 }
@@ -251,6 +251,7 @@
     max-width: 80%;
   }
   .message-Icon{
+    z-index: 20;
     position: fixed;
     top: 15%;
     left: 8%;
@@ -258,6 +259,7 @@
     cursor: pointer;
   }
   .PendingApproval{
+    z-index: 20; 
     position: fixed;
     top: 14%;
     right: 10%;
