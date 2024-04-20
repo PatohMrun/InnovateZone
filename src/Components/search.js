@@ -57,7 +57,7 @@ function Search({blogTitless:searchOptions, onSearch}) {
       };
     
   return (
-    <form className="max-w-md mx-auto shadow-md" style={{ backgroundColor: "#CCE1FA",  marginTop:"-20px", padding:0}}>
+    <form className="max-w-md w-auto mx-3 sm:mx-auto shadow-md my-2" style={{ backgroundColor: "#CCE1FA", padding:0}}>
       <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
       <div className="relative">
         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">

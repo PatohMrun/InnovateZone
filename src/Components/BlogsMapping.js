@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "../styles/categoryBlogs.css"
 import useFetch from "../Components/Fetch";
 import { FaEye } from "react-icons/fa6";
@@ -70,7 +70,7 @@ const Content = ({ data, title, userEmail, blogTitless }) => {
       .map(sortedData => (
         <div className="Blogs" key={sortedData.id}>
           <div className="EachBlog">
-            <Link to={`/blogs/${sortedData.id}`}>
+            <NavLink to={`/blogs/${sortedData.id}-6d6be7c1-bb30-4d2cg`}>
               <h3>
                 {sortedData.title?.toUpperCase()}
               </h3>
@@ -82,7 +82,7 @@ const Content = ({ data, title, userEmail, blogTitless }) => {
                 Author: {sortedData.author}
                 </p>
               </div>
-            </Link>
+            </NavLink>
           </div>
         </div>
       ))}

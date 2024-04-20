@@ -11,7 +11,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import "../styles/ReadBog.css";
 
 const ReadBlogs = () => {
-  const { id } = useParams();
+  const { id:paramId } = useParams();
+  const id=paramId?.split("-")[0]
   const { data, pending, Error } = useFetch(
     "https://innovate-zone-server.vercel.app/blogs/" + id +"?api_key=UD9VZKyRU5eIZzPq"
   );
