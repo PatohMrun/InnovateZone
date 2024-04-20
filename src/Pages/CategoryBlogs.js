@@ -42,6 +42,15 @@ const CategoryBlogs = ({ category, title }) => {
       filteredData = data.filter((data) => data.blogtype === category);
     }
   }
+  let blogTitless = [];
+if (filteredData !== null) {
+  blogTitless = filteredData.map(blog => {
+    // Capitalize the first letter of each title
+    const capitalizedTitle = blog.title.charAt(0).toUpperCase() + blog.title.slice(1).toLowerCase();
+    return capitalizedTitle;
+  });
+}
+
   // console.log(blogCountsByUser);
   let blogCounted = null;
   Object.keys(blogCountsByUser).forEach((email) => {
@@ -71,7 +80,7 @@ const CategoryBlogs = ({ category, title }) => {
             <h2 style={{ color: "#444444" }}>Loading...</h2>
           </div>
           ) : filteredData !== null && filteredData.length > 0 ? (
-              <Blogs data={filteredData} title={title} />
+              <Blogs data={filteredData} blogTitless={blogTitless} title={title} />
           ):(
           //show no items found
           <div className="SpecificBlog">

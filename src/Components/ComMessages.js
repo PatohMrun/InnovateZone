@@ -19,10 +19,7 @@ const CommentMessages = ({ comments, setComments }) => {
     pending: ped,
     error3,
   } = useFetch("https://innovate-zone-server.vercel.app/getlikes/" + id);
-if(likes){
-  // console.log(likes);
-  // <h3>Loading....</h3>
-}
+
 
   const [replyForm, setreplyForm] = useState(false);
   const [CommentId, setCommentId] = useState(null);
@@ -99,9 +96,10 @@ if(likes){
     margin:"5px",
     pointerEvents: check ? 'none' : 'auto'
   };
+
   useEffect(() => {
     if (likes) {
-      setLikes(likes[0]?.isliked);
+      setLikes(likes.length);
     }
   }, [likes]);
 

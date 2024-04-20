@@ -45,6 +45,8 @@ blockquote {
   padding: 15px;
   background: #eee;
   border-radius: 5px;
+  @apply border-l-4 border-blue-700
+
 }
 
 .blog-content a{

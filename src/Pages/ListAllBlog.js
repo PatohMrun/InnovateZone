@@ -79,6 +79,17 @@ views?.forEach(view => {
       filteredData = data;
     }
   }
+  // console.log(filteredData);
+
+let blogTitless = [];
+if (filteredData !== null) {
+  blogTitless = filteredData.map(blog => {
+    // Capitalize the first letter of each title
+    const capitalizedTitle = blog.title.charAt(0).toUpperCase() + blog.title.slice(1).toLowerCase();
+    return capitalizedTitle;
+  });
+}
+
   // console.log(blogCountsByUser);
   let blogCounted = null;
   Object.keys(blogCountsByUser).forEach((email) => {
@@ -186,7 +197,7 @@ views?.forEach(view => {
         {filteredData !== null && filteredData.length > 0 && !Errors ? (
           <section className="GuestBlogger">
             {showStatistics && (
-              <div id="All-stats">
+              <div id="All-stats" className="border-b-2 border-blue-400">
                 <h2 id="stat-title">Statistics</h2>
                 <br />
                 <div className="statistics">
@@ -217,10 +228,11 @@ views?.forEach(view => {
               </div>
             )}
             <br />
-            <hr id="divide-line" />
+            {/* <hr id="divide-line" /> */}
             <div id="list-all-blogs">
               <Blogs
                 data={filteredData}
+                blogTitless={blogTitless}
                 title="Get insighted by powerful blogs."
                 userEmail={userEmail}
               />

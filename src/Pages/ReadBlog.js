@@ -129,7 +129,7 @@ const ReadBlogs = () => {
       <br />
       {data && (
         <p style={{ float: "right", fontSize:"medium", color: "blue" }}>
-          Written by:{" "}
+          Author:{" "}
           <span dangerouslySetInnerHTML={{ __html: data[0]["author"] }} />
         </p>
       )}

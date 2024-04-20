@@ -2,8 +2,33 @@ import { Link } from "react-router-dom";
 import "../styles/categoryBlogs.css"
 import useFetch from "../Components/Fetch";
 import { FaEye } from "react-icons/fa6";
+import Search from "./search";
+import { useState } from "react";
 
-const Content = ({ data, title, userEmail }) => {
+const Content = ({ data, title, userEmail, blogTitless }) => {
+
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredData, setFilteredData] = useState(data); // State to hold filtered data
+
+  // Function to handle search term change
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+    if (term === '') {
+      setFilteredData(data); // Reset filtered data when search term is empty
+    } else {
+      const filtered = data.filter((sortedData) =>
+        sortedData.title?.toLowerCase().includes(term?.toLowerCase())
+      );
+      if (filtered.length === 0) {
+        setSearchTerm('')
+      } else {
+        setFilteredData(filtered);
+      }
+    }
+  };
+  
+
   const sortedData = data.sort((a, b) => b.id - a.id);
 
   const formatTimestamp = (timestamp) => {
@@ -39,8 +64,10 @@ const Content = ({ data, title, userEmail }) => {
   });
   return (
     <div className="blogs">
+      <Search blogTitless={blogTitless} onSearch={handleSearch}/>
       <h2>{title}</h2>
-      {data.map(sortedData => (
+      {filteredData.filter(sortedData => sortedData.title?.toLowerCase().includes(searchTerm.toLowerCase())) // Filter data based on search term
+      .map(sortedData => (
         <div className="Blogs" key={sortedData.id}>
           <div className="EachBlog">
             <Link to={`/blogs/${sortedData.id}`}>
@@ -52,7 +79,7 @@ const Content = ({ data, title, userEmail }) => {
               <div className={userEmail ? "flex justify-between" : ""}>
                 {userEmail && <div className="flex gap-2 items-center text-blue-500"><FaEye /> {cumulativeViewed[sortedData.id] || 0}</div>}
                 <p style={{ color: "blue", float:"right",  fontSize: "medium" }}>
-                  Written by: {sortedData.author}
+                Author: {sortedData.author}
                 </p>
               </div>
             </Link>
