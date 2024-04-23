@@ -11,7 +11,8 @@ import useFetch from "./Fetch";
 
 const CommentMessages = ({ comments, setComments }) => {
   
-  const { id } = useParams();
+  const { id:paramId } = useParams();
+  const id=paramId?.split("-")[0]
   // const[comments,setComments]=useState([])
 
   const {

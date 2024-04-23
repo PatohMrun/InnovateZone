@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import usePostData from "./PostComments";
 import toast, { Toaster } from "react-hot-toast";
 const Replies = ({ setComments }) => {
-  const { id } = useParams();
+  const { id:paramId } = useParams();
+  const id=paramId?.split("-")[0]
+  
   const [CommmentSubmitted, setCommentSubmitted] = useState(false);
   const [formData, setformData] = useState({
     name: "",
