@@ -19,7 +19,7 @@ const CommentMessages = ({ comments, setComments }) => {
     data: likes,
     pending: ped,
     error3,
-  } = useFetch("https://innovate-zone-server.vercel.app/getlikes/" + id);
+  } = useFetch("https://blog-server-kohl.vercel.app/getlikes/" + id);
 
 
   const [replyForm, setreplyForm] = useState(false);
@@ -45,7 +45,7 @@ const CommentMessages = ({ comments, setComments }) => {
     event.preventDefault();
     try {
       setLoading(true);
-      const response = await fetch("https://innovate-zone-server.vercel.app/comments", {
+      const response = await fetch("https://blog-server-kohl.vercel.app/comments", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(formData),
@@ -82,7 +82,7 @@ const CommentMessages = ({ comments, setComments }) => {
       isLiked:1,
     }
     setLikes(parseInt(No_of_Likes) + 1);
-    const response= await fetch("https://innovate-zone-server.vercel.app/like", {
+    const response= await fetch("https://blog-server-kohl.vercel.app/like", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify( Likes_data ),   
@@ -135,7 +135,7 @@ const CommentMessages = ({ comments, setComments }) => {
 
 
     useEffect(() => {
-      fetch(`https://innovate-zone-server.vercel.app/getComments/${id}`)
+      fetch(`https://blog-server-kohl.vercel.app/getComments/${id}`)
         .then(res => res.json())
         .then(data => {
           if (data) {

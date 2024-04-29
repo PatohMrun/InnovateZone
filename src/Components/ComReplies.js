@@ -38,7 +38,7 @@ const Replies = ({ setComments }) => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://innovate-zone-server.vercel.app/comments",
+        "https://blog-server-kohl.vercel.app/comments",
         {
           method: "POST",
           headers: { "content-type": "application/json" },

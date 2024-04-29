@@ -21,7 +21,7 @@ const CategoryBlogs = ({ category, title }) => {
     setUserRole(role);
   }, []);
 
-  const { data, pending, Errors } = useFetch("https://innovate-zone-server.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq")
+  const { data, pending, Errors } = useFetch("https://blog-server-kohl.vercel.app/blogs?api_key=UD9VZKyRU5eIZzPq")
   let filteredData = null;
   let blogCountsByUser = {};
   let AllBlog = null;

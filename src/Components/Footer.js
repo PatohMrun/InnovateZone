@@ -46,7 +46,7 @@ function Footer() {
       }
     });
       const source="Message from InnovateZone website"
-  fetch("https://innovate-zone-server.vercel.app/mails", {
+  fetch("https://blog-server-kohl.vercel.app/mails", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify(formMessages, source),

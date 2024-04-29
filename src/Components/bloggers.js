@@ -7,7 +7,7 @@ const Bloggers = () => {
     data: admins,
     pending: pending1,
     error: error1,
-  } = useFetch("https://innovate-zone-server.vercel.app/GuestBloggers?api_key=UD9VZKyRU5eIZzPq");
+  } = useFetch("https://blog-server-kohl.vercel.app/GuestBloggers?api_key=UD9VZKyRU5eIZzPq");
 
   useEffect(() => {
     if (admins) {
@@ -18,7 +18,7 @@ const Bloggers = () => {
   const remove = async (e, email) => {
     e.preventDefault();
     if (window.confirm("Are you sure you want to remove this user?")) {
-      await fetch("https://innovate-zone-server.vercel.app/removeAdmin", {
+      await fetch("https://blog-server-kohl.vercel.app/removeAdmin", {
         method: "post",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email }),
